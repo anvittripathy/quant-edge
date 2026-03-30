@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 import {
   LineChart, Line,
@@ -1016,6 +1017,7 @@ export default function App() {
         ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-track{background:#050810}::-webkit-scrollbar-thumb{background:#1e293b;border-radius:2px}
         *{box-sizing:border-box}
       `}</style>
+      <Analytics />
     </div>
   );
 }
