@@ -302,12 +302,6 @@ export default function App() {
   const invested = useMemo(()=>stocks.reduce((s,st)=>s+st.avgBuy*st.qty,0),[stocks]);
   const reqCAGR = useMemo(()=>solveCAGR(pv,sip,GOAL,params.horizon),[pv,sip,GOAL,params.horizon]);
 
-  const sectors = useMemo(()=>{// remove this entire line and the next 5 lines if you don't want sector breakdown  
-    const m={};
-    stocks.forEach(st=>{const v=(livePrices[st.ticker]||st.price)*st.qty; m[st.sector]=(m[st.sector]||0)+v;});
-    return Object.entries(m).map(([s,v])=>({sector:s,value:v,pct:v/pv})).sort((a,b)=>b.value-a.value);
-  },[stocks,pv,livePrices]);
-
   // Simulate live price ticks
   useEffect(()=>{
     if(!liveMode) return;
