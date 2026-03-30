@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders portfolio application', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Check for the main header text
+  const element = screen.getByText(/QuantEdge Portfolio Intelligence/i);
+  expect(element).toBeInTheDocument();
 });
