@@ -1,0 +1,122 @@
+Last login: Tue Mar 31 00:33:09 on ttys001
+anvittripathy@Anvits-MacBook-Air quantedge % git init
+git add .
+git commit -m "quantedge initial"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/quantedge.git
+git push -u origin main
+Reinitialized existing Git repository in /Users/anvittripathy/quantedge/.git/
+[main b9614f8] quantedge initial
+ 3 files changed, 1413 insertions(+), 19 deletions(-)
+remote: Repository not found.
+fatal: repository 'https://github.com/YOUR_USERNAME/quantedge.git/' not found
+anvittripathy@Anvits-MacBook-Air quantedge % 
+anvittripathy@Anvits-MacBook-Air quantedge % git init
+git add .
+git commit -m "quantedge initial"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/quantedge.git
+git push -u origin    
+Reinitialized existing Git repository in /Users/anvittripathy/quantedge/.git/
+On branch main
+nothing to commit, working tree clean
+error: remote origin already exists.
+fatal: The current branch main has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin main
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+anvittripathy@Anvits-MacBook-Air quantedge %  git init
+git add .
+git commit -m "quantedge initial"
+git branch -M main
+git remote add origin https://github.com/anvittripathy/quant-edge.git.
+git push -u origin main
+Reinitialized existing Git repository in /Users/anvittripathy/quantedge/.git/
+On branch main
+nothing to commit, working tree clean
+error: remote origin already exists.
+remote: Repository not found.
+fatal: repository 'https://github.com/YOUR_USERNAME/quantedge.git/' not found
+anvittripathy@Anvits-MacBook-Air quantedge %  git init
+git add .
+git commit -m "quantedge initial"
+git branch -M main
+git remote add origin https://github.com/anvittripathy/quant-edge.git.
+git push -u origin main
+Reinitialized existing Git repository in /Users/anvittripathy/quantedge/.git/
+On branch main
+nothing to commit, working tree clean
+error: remote origin already exists.
+remote: Repository not found.
+fatal: repository 'https://github.com/YOUR_USERNAME/quantedge.git/' not found
+anvittripathy@Anvits-MacBook-Air quantedge % git remote set-url origin https://github.com/anvittripathyquantedge.git
+git push -u origin main
+remote: Not Found
+fatal: repository 'https://github.com/anvittripathyquantedge.git/' not found
+anvittripathy@Anvits-MacBook-Air quantedge % git remote set-url origin https://github.com/anvittripathy/quant-edge.git
+git push -u origin main
+To https://github.com/anvittripathy/quant-edge.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/anvittripathy/quant-edge.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+anvittripathy@Anvits-MacBook-Air quantedge % git pull origin main --rebase
+git push origin main
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 871 bytes | 217.00 KiB/s, done.
+From https://github.com/anvittripathy/quant-edge
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> origin/main
+Auto-merging README.md
+CONFLICT (add/add): Merge conflict in README.md
+error: could not apply 43f6f1e... Initialize project using Create React App
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply 43f6f1e... # Initialize project using Create React App
+To https://github.com/anvittripathy/quant-edge.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/anvittripathy/quant-edge.git'
+hint: Updates were rejected because a pushed branch tip is behind its remote
+hint: counterpart. If you want to integrate the remote changes, use 'git pull'
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+anvittripathy@Anvits-MacBook-Air quantedge % git add .
+git rebase --continue
+git push origin main
+hint: Waiting for your editor to close the file... 
+#    pick b9614f8 # quantedge initial
+# You are currently rebasing branch 'main' on 'fe25bad'.
+#
+# Changes to be committed:
+#       new file:   .gitignore
+#       modified:   README.md
+#       new file:   package-lock.json
+#       new file:   package.json
+#       new file:   public/favicon.ico
+#       new file:   public/index.html
+#       new file:   public/logo192.png
+#       new file:   public/logo512.png
+#       new file:   public/manifest.json
+#       new file:   public/robots.txt
+#       new file:   src/App.css
+#       new file:   src/App.js
+#       new file:   src/App.test.js
+#       new file:   src/index.css
+#       new file:   src/index.js
+#       new file:   src/logo.svg
+#       new file:   src/reportWebVitals.js
+#       new file:   src/setupTests.js
+#
+                                                                        

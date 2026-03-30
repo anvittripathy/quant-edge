@@ -1,5 +1,14 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart, BarChart, Bar, Cell, ComposedChart, PieChart, Pie } from "recharts";
+import { useState, useEffect, useMemo, useCallback } from 'react';
+
+import {
+  LineChart, Line,
+  XAxis, YAxis, Tooltip, ResponsiveContainer,
+  CartesianGrid,
+  ComposedChart,
+  BarChart, Bar, Cell,
+  AreaChart, Area,
+  ReferenceLine
+} from 'recharts';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // PORTFOLIO DATA — fully editable
