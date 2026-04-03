@@ -1,43 +1,2642 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quant Edge India — India's Post-Tax Portfolio Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#07111f;
+  --navy2:#0c1a2e;
+  --navy3:#122040;
+  --card-bg:#0f1d31;
+  --card-border:rgba(255,255,255,0.07);
+  --saffron:#FF6B00;
+  --saffron2:#ff8c2a;
+  --saffron-dim:rgba(255,107,0,0.15);
+  --india-green:#138808;
+  --india-green-dim:rgba(19,136,8,0.15);
+  --blue:#2563eb;
+  --blue-dim:rgba(37,99,235,0.15);
+  --text:#f0f4f8;
+  --text2:#94a3b8;
+  --text3:#64748b;
+  --border:rgba(255,255,255,0.08);
+  --red:#ef4444;
+  --green:#22c55e;
+  --font:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+  --radius:10px;
+  --radius-lg:14px;
+  --radius-xl:20px;
+  --glow-saffron:0 0 40px rgba(255,107,0,0.15);
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--navy);color:var(--text);font-size:15px;line-height:1.6;overflow-x:hidden;}
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,107,0,0.3);border-radius:4px;}
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.4;
+}
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(7,17,31,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;
+  display:flex;align-items:center;height:56px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;margin-right:2.5rem;text-decoration:none;}
+.nav-logo-mark{
+  width:32px;height:32px;background:var(--saffron);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 16px rgba(255,107,0,0.4);
+}
+.nav-logo-mark svg{width:18px;height:18px;}
+.nav-logo-text{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.3px;}
+.nav-logo-tag{
+  font-size:9.5px;font-weight:700;background:var(--saffron);color:#fff;
+  border-radius:4px;padding:2px 6px;letter-spacing:0.5px;
+}
+.nav-tabs{display:flex;flex:1;}
+.nav-tab{
+  color:var(--text2);font-size:13.5px;padding:0 14px;height:56px;
+  display:flex;align-items:center;cursor:pointer;border-bottom:2px solid transparent;
+  text-decoration:none;transition:color 0.15s;white-space:nowrap;
+}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{color:#fff;border-bottom-color:var(--saffron);}
+.nav-right{display:flex;gap:8px;align-items:center;margin-left:auto;}
+.badge-india{
+  display:flex;align-items:center;gap:6px;font-size:12px;
+  background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);
+  border-radius:6px;padding:5px 10px;color:var(--saffron2);
+}
+.btn-login{color:var(--text2);font-size:13px;border:1px solid var(--border);border-radius:6px;padding:6px 14px;background:transparent;cursor:pointer;text-decoration:none;}
+.btn-login:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+.btn-signup{color:#fff;font-size:13px;border:none;border-radius:6px;padding:6px 16px;background:var(--saffron);cursor:pointer;font-weight:600;text-decoration:none;}
+.btn-signup:hover{background:var(--saffron2);}
+
+/* TICKER */
+.ticker{
+  background:rgba(12,26,46,0.9);border-bottom:1px solid var(--border);
+  padding:0 2rem;display:flex;align-items:center;gap:0;height:36px;
+  overflow:hidden;position:relative;
+}
+.ticker-track{display:flex;gap:32px;animation:tickerScroll 40s linear infinite;white-space:nowrap;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}
+}
+.t-item{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.t-name{color:var(--text3);font-size:11.5px;font-family:var(--mono);}
+.t-val{color:var(--text);font-size:12px;font-weight:500;font-family:var(--mono);}
+.t-chg{font-size:11px;font-family:var(--mono);}
+.t-chg.up{color:#4ade80;}
+.t-chg.dn{color:#f87171;}
+.t-sep{width:1px;height:14px;background:var(--border);flex-shrink:0;}
+
+/* HERO */
+.hero{
+  position:relative;padding:80px 2rem 0;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse 120% 60% at 50% 0%, rgba(255,107,0,0.08) 0%, transparent 60%);
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);
+  border-radius:100px;padding:6px 16px;font-size:12.5px;color:var(--saffron2);
+  margin-bottom:28px;font-weight:500;
+}
+.pulse-dot{width:6px;height:6px;background:var(--saffron);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.hero h1{
+  font-size:clamp(38px,5.5vw,68px);font-weight:700;color:#fff;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:8px;
+}
+.hero h1 em{font-style:normal;color:var(--saffron);}
+.hero-sub{
+  font-size:18px;color:var(--text2);max-width:580px;margin:0 auto 48px;
+  line-height:1.65;font-weight:400;
+}
+.hero-sub strong{color:var(--text);font-weight:600;}
+
+/* MAIN TOOL CARD (HERO) */
+.hero-tool{
+  max-width:820px;margin:0 auto;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:var(--radius-xl);overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,0.4),var(--glow-saffron);
+}
+.tool-tabs{
+  display:flex;background:rgba(0,0,0,0.3);border-bottom:1px solid var(--border);
+}
+.tool-tab{
+  flex:1;padding:14px 16px;font-size:13px;color:var(--text3);
+  cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.tool-tab:hover{color:var(--text2);}
+.tool-tab.active{color:var(--saffron);border-bottom-color:var(--saffron);background:rgba(255,107,0,0.05);}
+.tool-panel{display:none;padding:28px;}
+.tool-panel.active{display:block;}
+
+/* SIP FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11.5px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.form-input,.form-select{
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 14px;font-size:14px;
+  color:var(--text);outline:none;font-family:var(--font);
+  transition:border-color 0.15s;
+}
+.form-input:focus,.form-select:focus{border-color:rgba(255,107,0,0.5);}
+.form-select option{background:#0f1d31;}
+.input-prefix{position:relative;}
+.input-prefix .rupee{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--text3);font-size:14px;font-weight:600;
+}
+.input-prefix .form-input{padding-left:26px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.btn-analyse{
+  width:100%;background:var(--saffron);color:#fff;border:none;
+  border-radius:var(--radius);padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:var(--font);transition:all 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-analyse:hover{background:var(--saffron2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,107,0,0.3);}
+.btn-analyse:active{transform:translateY(0);}
+
+/* RESULTS */
+.results-area{margin-top:24px;display:none;}
+.results-area.show{display:block;}
+.results-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.metric-card{
+  background:rgba(0,0,0,0.3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px 16px;
+}
+.metric-card.highlight{border-color:rgba(255,107,0,0.3);background:rgba(255,107,0,0.05);}
+.metric-card.tax-card{border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.05);}
+.metric-card.net-card{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.05);}
+.metric-lbl{font-size:10.5px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;font-weight:600;}
+.metric-val{font-size:20px;font-weight:700;color:#fff;font-family:var(--mono);letter-spacing:-0.5px;}
+.metric-val.orange{color:var(--saffron2);}
+.metric-val.red{color:#f87171;}
+.metric-val.green{color:#4ade80;}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:3px;}
+.chart-container{
+  background:rgba(0,0,0,0.25);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;margin-bottom:16px;
+}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.chart-title{font-size:13px;font-weight:600;color:var(--text2);}
+.chart-legend{display:flex;gap:16px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text3);}
+.legend-dot{width:8px;height:8px;border-radius:50%;}
+canvas{width:100%!important;}
+.tax-breakdown{
+  background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);
+  border-radius:var(--radius);padding:16px;
+}
+.tax-breakdown-title{font-size:12px;font-weight:700;color:#fca5a5;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
+.tax-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(239,68,68,0.1);font-size:13px;}
+.tax-row:last-child{border-bottom:none;padding-top:10px;font-weight:700;}
+.tax-key{color:var(--text2);}
+.tax-amount{font-family:var(--mono);color:var(--text);}
+.tax-amount.red{color:#f87171;}
+.tax-amount.green{color:#4ade80;}
+.share-btn{
+  width:100%;margin-top:16px;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  border-radius:var(--radius);padding:12px;font-size:13px;
+  color:var(--text2);cursor:pointer;font-family:var(--font);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all 0.15s;
+}
+.share-btn:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.loading-overlay{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 20px;gap:16px;
+}
+.loading-overlay.show{display:flex;}
+.spinner{
+  width:36px;height:36px;border:2px solid var(--border);
+  border-top-color:var(--saffron);border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:13.5px;color:var(--text2);}
+
+/* TAX CALCULATOR PANEL */
+.tax-calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.tax-result-box{
+  background:rgba(0,0,0,0.3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.tax-result-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;}
+.tax-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13.5px;}
+.tax-item:last-child{border-bottom:none;font-weight:700;font-size:14px;}
+.tax-item-label{color:var(--text2);}
+.tax-item-value{font-family:var(--mono);color:var(--text);}
+.tax-note{
+  font-size:11.5px;color:var(--text3);background:rgba(255,107,0,0.07);
+  border:1px solid rgba(255,107,0,0.15);border-radius:var(--radius);
+  padding:10px 14px;margin-top:12px;line-height:1.6;
+}
+
+/* COMPARE PANEL */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.compare-side{background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.compare-side-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;}
+.compare-side-label.a{color:var(--saffron);}
+.compare-side-label.b{color:#60a5fa;}
+.compare-results{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.compare-metric{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
+.compare-metric .lbl{font-size:10.5px;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;}
+.compare-metric .vals{display:flex;gap:12px;align-items:baseline;}
+.compare-metric .val-a{font-size:18px;font-weight:700;color:var(--saffron);font-family:var(--mono);}
+.compare-metric .val-b{font-size:18px;font-weight:700;color:#60a5fa;font-family:var(--mono);}
+.winner-badge{font-size:10px;background:rgba(34,197,94,0.15);color:#4ade80;border-radius:4px;padding:2px 6px;margin-left:4px;font-weight:600;}
+
+/* SECTION GENERIC */
+section{position:relative;z-index:1;}
+
+/* MARKET MONITOR */
+.section{padding:56px 2rem;max-width:1180px;margin:0 auto;}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;}
+.sec-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px;}
+.sec-sub{font-size:13.5px;color:var(--text3);margin-top:4px;}
+.live-pill{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);
+  border-radius:100px;padding:4px 12px;font-size:11.5px;color:#4ade80;font-weight:600;
+}
+.live-dot2{width:5px;height:5px;background:#4ade80;border-radius:50%;animation:pulse 1.5s infinite;}
+.mkt-table{width:100%;border-collapse:collapse;}
+.mkt-table thead tr{border-bottom:1px solid var(--border);}
+.mkt-table th{padding:10px 14px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;text-align:left;}
+.mkt-table th.r{text-align:right;}
+.mkt-table td{padding:13px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13.5px;vertical-align:middle;}
+.mkt-table td.r{text-align:right;font-family:var(--mono);}
+.mkt-table tr:hover td{background:rgba(255,255,255,0.02);}
+.mkt-table tr:last-child td{border-bottom:none;}
+.port-name{color:var(--saffron2);text-decoration:none;font-weight:600;cursor:pointer;}
+.port-name:hover{text-decoration:underline;}
+.tag{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle;letter-spacing:0.3px;}
+.tag.nifty{background:var(--india-green-dim);color:#4ade80;}
+.tag.mf{background:var(--blue-dim);color:#93c5fd;}
+.tag.india{background:var(--saffron-dim);color:var(--saffron2);}
+.pos{color:#4ade80;font-weight:600;}
+.neg{color:#f87171;font-weight:600;}
+.tbl-wrap{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);overflow:hidden;}
+.bar-mini{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:6px;opacity:0.6;}
+
+/* TOOLS GRID */
+.tools-bg{background:rgba(0,0,0,0.2);padding:64px 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tools-inner{max-width:1180px;margin:0 auto;}
+.tools-hl{text-align:center;margin-bottom:48px;}
+.tools-hl h2{font-size:32px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:10px;}
+.tools-hl p{font-size:16px;color:var(--text2);max-width:540px;margin:0 auto;}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.tool-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:var(--radius-lg);padding:22px;cursor:pointer;
+  transition:all 0.2s;text-decoration:none;display:block;
+}
+.tool-card:hover{border-color:rgba(255,107,0,0.3);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3);}
+.tool-card.star{border-color:rgba(255,107,0,0.4);box-shadow:0 0 20px rgba(255,107,0,0.1);}
+.tool-icon{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+.tool-card h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
+.tool-card p{font-size:12.5px;color:var(--text3);line-height:1.5;}
+.hot-tag{float:right;font-size:10px;font-weight:700;background:var(--saffron-dim);color:var(--saffron);border-radius:4px;padding:2px 7px;}
+.new-tag{float:right;font-size:10px;font-weight:700;background:var(--india-green-dim);color:#4ade80;border-radius:4px;padding:2px 7px;}
+
+/* ANALYSIS VISUAL SECTION */
+.analysis-wrap{max-width:1180px;margin:0 auto;padding:72px 2rem;}
+.analysis-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+.analysis-text h2{font-size:34px;font-weight:700;letter-spacing:-0.5px;margin-bottom:16px;color:#fff;}
+.analysis-text h2 span{color:var(--saffron);}
+.analysis-text p{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:24px;}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.check-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);}
+.check-ic{width:20px;height:20px;border-radius:50%;background:var(--india-green-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.perf-card{background:var(--navy2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px;overflow:hidden;}
+.perf-hdr{display:flex;justify-content:space-between;margin-bottom:20px;}
+.perf-title{font-size:13px;font-weight:600;color:var(--text2);}
+.perf-period{font-size:12px;color:var(--text3);}
+
+/* TAX SECTION */
+.tax-section{background:rgba(239,68,68,0.04);border-top:1px solid rgba(239,68,68,0.1);border-bottom:1px solid rgba(239,68,68,0.1);padding:64px 2rem;}
+.tax-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.tax-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:100px;padding:5px 14px;font-size:12px;color:#fca5a5;margin-bottom:16px;font-weight:600;}
+.tax-text h2{font-size:30px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:12px;}
+.tax-cards-list{display:flex;flex-direction:column;gap:12px;}
+.tax-feature-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:var(--radius);padding:16px 20px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.tfc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tfc-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px;}
+.tfc-desc{font-size:12.5px;color:var(--text3);line-height:1.5;}
+.budget-pill{display:inline-block;font-size:10.5px;font-weight:700;background:rgba(251,191,36,0.15);color:#fbbf24;border-radius:4px;padding:2px 7px;margin-left:6px;}
+
+/* TRUST */
+.trust-wrap{background:var(--navy2);border-top:1px solid var(--border);padding:72px 2rem;text-align:center;}
+.trust-inner{max-width:960px;margin:0 auto;}
+.trust-wrap h2{font-size:34px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;}
+.trust-wrap p{font-size:16px;color:var(--text2);max-width:520px;margin:0 auto 48px;line-height:1.7;}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.trust-stat{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-lg);padding:24px;}
+.trust-stat-num{font-size:30px;font-weight:700;color:#fff;letter-spacing:-0.5px;font-family:var(--mono);}
+.trust-stat-num span{color:var(--saffron);}
+.trust-stat-lbl{font-size:12.5px;color:var(--text3);margin-top:5px;}
+.sebi-strip{
+  display:inline-flex;align-items:center;gap:8px;margin-top:28px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:8px;padding:8px 16px;font-size:12px;color:var(--text3);
+}
+
+/* CTA */
+.cta-wrap{padding:80px 2rem;text-align:center;}
+.cta-inner{max-width:640px;margin:0 auto;}
+.cta-wrap h2{font-size:38px;font-weight:700;letter-spacing:-0.7px;color:#fff;margin-bottom:14px;}
+.cta-wrap h2 em{font-style:normal;color:var(--saffron);}
+.cta-wrap p{font-size:16px;color:var(--text2);margin-bottom:36px;}
+.cta-btns{display:flex;gap:12px;justify-content:center;}
+.btn-cta-main{
+  background:var(--saffron);color:#fff;border:none;
+  border-radius:var(--radius);padding:16px 36px;font-size:15px;
+  font-weight:700;cursor:pointer;text-decoration:none;font-family:var(--font);
+  transition:all 0.2s;
+}
+.btn-cta-main:hover{background:var(--saffron2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,107,0,0.3);}
+.btn-cta-ghost{
+  background:transparent;color:var(--text2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 32px;font-size:15px;font-weight:500;
+  cursor:pointer;text-decoration:none;font-family:var(--font);
+}
+.btn-cta-ghost:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+
+/* FOOTER */
+footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 2rem 28px;}
+.footer-inner{max-width:1180px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;margin-bottom:40px;gap:32px;}
+.footer-brand{max-width:260px;}
+.footer-brand p{font-size:13px;color:var(--text3);line-height:1.7;margin-top:10px;}
+.footer-cols{display:flex;gap:48px;}
+.footer-col h4{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:14px;}
+.footer-col a{display:block;color:var(--text3);font-size:13px;text-decoration:none;margin-bottom:9px;transition:color 0.15s;}
+.footer-col a:hover{color:var(--saffron2);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.footer-legal{font-size:12px;color:var(--text3);}
+.footer-links-row{display:flex;gap:20px;}
+.footer-links-row a{font-size:12px;color:var(--text3);text-decoration:none;}
+.footer-links-row a:hover{color:var(--text2);}
+.disclaimer{font-size:11.5px;color:var(--text3);opacity:0.6;margin-top:16px;line-height:1.7;}
+
+/* NOTIFICATION TOAST */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--navy3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px 18px;
+  display:flex;align-items:center;gap:10px;
+  font-size:13.5px;color:var(--text);
+  transform:translateY(80px);opacity:0;
+  transition:all 0.3s;pointer-events:none;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-icon{width:8px;height:8px;border-radius:50%;background:var(--saffron);}
+
+/* HEALTH SCORE */
+.health-score-wrap{
+  background:linear-gradient(135deg,rgba(255,107,0,0.08) 0%,rgba(0,0,0,0.3) 100%);
+  border:1px solid rgba(255,107,0,0.25);border-radius:var(--radius-lg);
+  padding:20px;margin-bottom:16px;display:grid;
+  grid-template-columns:auto 1fr;gap:20px;align-items:center;
+}
+.health-dial{position:relative;width:88px;height:88px;flex-shrink:0;}
+.health-dial svg{transform:rotate(-90deg);}
+.health-dial-label{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.health-score-num{font-size:24px;font-weight:800;font-family:var(--mono);color:#fff;line-height:1;}
+.health-score-max{font-size:10px;color:var(--text3);margin-top:1px;}
+.health-grade{font-size:11px;font-weight:700;letter-spacing:0.5px;margin-top:2px;}
+.health-bars{display:flex;flex-direction:column;gap:9px;}
+.hbar-row{display:flex;align-items:center;gap:10px;}
+.hbar-label{font-size:11.5px;color:var(--text2);width:110px;flex-shrink:0;}
+.hbar-track{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+.hbar-fill{height:100%;border-radius:3px;transition:width 0.8s cubic-bezier(.4,0,.2,1);}
+.hbar-val{font-size:11px;font-family:var(--mono);color:var(--text3);width:28px;text-align:right;flex-shrink:0;}
+
+/* PAYWALL BLUR SECTION */
+.paywall-section{position:relative;margin-top:16px;}
+.paywall-blur{
+  filter:blur(5px);pointer-events:none;user-select:none;
+  opacity:0.4;transition:all 0.3s;
+}
+.paywall-gate{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:10;
+  background:radial-gradient(ellipse at center, rgba(7,17,31,0.92) 40%, rgba(7,17,31,0.7) 100%);
+  border-radius:var(--radius);
+  border:1px solid rgba(255,107,0,0.3);
+  gap:10px;padding:24px;text-align:center;
+}
+.paywall-lock{font-size:28px;margin-bottom:2px;}
+.paywall-title{font-size:15px;font-weight:700;color:#fff;}
+.paywall-sub{font-size:12.5px;color:var(--text2);max-width:280px;line-height:1.5;}
+.paywall-blur-content{
+  background:rgba(0,0,0,0.25);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;
+}
+
+/* EMAIL GATE */
+.email-gate-form{display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;}
+.email-gate-row{display:flex;gap:8px;}
+.gate-input{
+  flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,107,0,0.3);
+  border-radius:8px;padding:10px 14px;font-size:13.5px;color:#fff;
+  outline:none;font-family:var(--font);
+}
+.gate-input:focus{border-color:var(--saffron);}
+.gate-input::placeholder{color:var(--text3);}
+.gate-submit{
+  background:var(--saffron);color:#fff;border:none;border-radius:8px;
+  padding:10px 18px;font-size:13.5px;font-weight:700;cursor:pointer;
+  font-family:var(--font);white-space:nowrap;transition:all 0.15s;
+}
+.gate-submit:hover{background:var(--saffron2);}
+.gate-privacy{font-size:10.5px;color:var(--text3);text-align:center;}
+
+/* VIRAL UNLOCK BANNER */
+.viral-unlock{
+  background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,197,94,0.04));
+  border:1px solid rgba(34,197,94,0.25);border-radius:var(--radius);
+  padding:14px 16px;display:flex;align-items:center;gap:12px;
+  margin-top:12px;cursor:pointer;transition:all 0.15s;
+}
+.viral-unlock:hover{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.08);}
+.viral-icon{font-size:20px;flex-shrink:0;}
+.viral-text{flex:1;}
+.viral-title{font-size:13px;font-weight:700;color:#4ade80;margin-bottom:2px;}
+.viral-sub{font-size:11.5px;color:var(--text2);}
+.viral-arrow{color:#4ade80;font-size:18px;flex-shrink:0;}
+
+/* ADVISORY CTA */
+.advisory-cta{
+  background:linear-gradient(135deg,rgba(37,99,235,0.12),rgba(37,99,235,0.04));
+  border:1px solid rgba(37,99,235,0.3);border-radius:var(--radius-lg);
+  padding:20px;margin-top:16px;display:grid;
+  grid-template-columns:1fr auto;gap:16px;align-items:center;
+}
+.advisory-tag{display:inline-block;font-size:10px;font-weight:700;background:rgba(37,99,235,0.2);color:#93c5fd;border-radius:4px;padding:2px 8px;letter-spacing:0.5px;margin-bottom:8px;}
+.advisory-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;}
+.advisory-desc{font-size:12.5px;color:var(--text2);line-height:1.5;}
+.advisory-inefficiency{font-size:13px;font-weight:700;color:#f87171;margin-top:6px;}
+.btn-advisory{
+  background:#2563eb;color:#fff;border:none;border-radius:var(--radius);
+  padding:12px 20px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:var(--font);white-space:nowrap;transition:all 0.15s;
+  display:flex;align-items:center;gap:7px;
+}
+.btn-advisory:hover{background:#1d4ed8;transform:translateY(-1px);}
+
+/* EMAIL MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  z-index:1000;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:var(--navy2);border:1px solid rgba(255,107,0,0.3);
+  border-radius:var(--radius-xl);padding:36px;max-width:420px;width:90%;
+  box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 40px rgba(255,107,0,0.1);
+  position:relative;
+}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;line-height:1;}
+.modal-close:hover{color:var(--text);}
+.modal-emoji{font-size:36px;margin-bottom:12px;}
+.modal-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:8px;}
+.modal-sub{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:24px;}
+.modal-highlight{color:var(--saffron);font-weight:600;}
+.modal-input-group{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.modal-input{
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);
+  border-radius:var(--radius);padding:12px 16px;font-size:14px;
+  color:#fff;outline:none;font-family:var(--font);
+}
+.modal-input:focus{border-color:rgba(255,107,0,0.5);}
+.modal-input::placeholder{color:var(--text3);}
+.modal-submit{
+  width:100%;background:var(--saffron);color:#fff;border:none;
+  border-radius:var(--radius);padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:var(--font);transition:all 0.2s;
+}
+.modal-submit:hover{background:var(--saffron2);transform:translateY(-1px);}
+.modal-benefits{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.modal-benefit{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);}
+.modal-benefit-icon{color:#4ade80;font-size:14px;flex-shrink:0;}
+.modal-privacy{font-size:11px;color:var(--text3);text-align:center;margin-top:10px;}
+
+/* UNLOCKED STATE */
+.unlocked-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);
+  border-radius:100px;padding:4px 12px;font-size:11.5px;color:#4ade80;
+  font-weight:600;margin-bottom:12px;
+}
+
+/* SCORE CATEGORY COLORS */
+.score-excellent{color:#4ade80;}
+.score-good{color:#a3e635;}
+.score-fair{color:#fbbf24;}
+.score-poor{color:#f87171;}
+
+/* UPLOAD PANEL TAB HIGHLIGHT */
+.tool-tab.upload-highlight{
+  background:linear-gradient(90deg,rgba(34,197,94,0.08),transparent);
+}
+  border:2px dashed var(--border);border-radius:var(--radius-lg);
+  padding:36px 24px;text-align:center;cursor:pointer;
+  transition:all 0.2s;background:rgba(0,0,0,0.15);
+}
+.upload-zone:hover,.upload-zone.drag-over{
+  border-color:rgba(255,107,0,0.5);background:rgba(255,107,0,0.04);
+}
+.upload-icon{width:56px;height:56px;background:rgba(255,107,0,0.1);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.upload-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;}
+.upload-sub{font-size:13px;color:var(--text3);}
+.broker-pill{display:inline-flex;align-items:center;font-size:11px;font-weight:600;
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);
+  border-radius:6px;padding:4px 10px;color:var(--text2);}
+.demo-btn{
+  background:transparent;border:1px solid var(--border);border-radius:8px;
+  padding:8px 16px;font-size:12.5px;color:var(--text2);cursor:pointer;
+  font-family:var(--font);display:inline-flex;align-items:center;gap:6px;
+  transition:all 0.15s;
+}
+.demo-btn:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+
+/* REPORT CARD */
+.report-card{
+  background:rgba(0,0,0,0.3);border:1px solid rgba(255,107,0,0.2);
+  border-radius:var(--radius-lg);padding:20px;
+  box-shadow:0 0 40px rgba(255,107,0,0.06);
+}
+.report-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.report-badge{font-size:10px;font-weight:700;color:var(--saffron);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+.report-title{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.3px;}
+
+/* HOLDINGS TABLE */
+.holdings-wrap{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.holdings-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);}
+.holdings-table{width:100%;border-collapse:collapse;}
+.holdings-table th{padding:8px 12px;font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;text-align:left;background:rgba(0,0,0,0.2);}
+.holdings-table th.r{text-align:right;}
+.holdings-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12.5px;vertical-align:middle;}
+.holdings-table td.r{text-align:right;font-family:var(--mono);}
+.holdings-table tr:last-child td{border-bottom:none;}
+.holdings-table tr:hover td{background:rgba(255,255,255,0.02);}
+.tax-type-badge{display:inline-block;font-size:9px;font-weight:700;border-radius:4px;padding:2px 6px;letter-spacing:0.3px;}
+.tax-type-badge.ltcg{background:rgba(34,197,94,0.15);color:#4ade80;}
+.tax-type-badge.stcg{background:rgba(251,191,36,0.15);color:#fbbf24;}
+
+/* CSV GUIDE */
+.csv-guide{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:16px;}
+.csv-guide-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;}
+.csv-guide-row code{font-family:var(--mono);font-size:12px;color:var(--saffron2);background:rgba(255,107,0,0.08);padding:6px 10px;border-radius:6px;display:block;}
+
+/* PRICING SECTION */
+.pricing-section{padding:80px 2rem;background:var(--navy2);border-top:1px solid var(--border);}
+.pricing-inner{max-width:1060px;margin:0 auto;}
+.pricing-header{text-align:center;margin-bottom:56px;}
+.pricing-header h2{font-size:36px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;}
+.pricing-header p{font-size:16px;color:var(--text2);max-width:480px;margin:0 auto;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.pricing-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:var(--radius-xl);padding:28px;position:relative;
+  transition:all 0.2s;
+}
+.pricing-card.featured{
+  border-color:rgba(255,107,0,0.4);
+  box-shadow:0 0 40px rgba(255,107,0,0.1);
+}
+.pricing-featured-badge{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--saffron);color:#fff;font-size:10px;font-weight:800;
+  letter-spacing:0.5px;padding:4px 14px;border-radius:0 0 8px 8px;
+}
+.pricing-tier{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;}
+.pricing-price{display:flex;align-items:baseline;gap:4px;margin-bottom:6px;}
+.pricing-amount{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;font-family:var(--mono);}
+.pricing-period{font-size:13px;color:var(--text3);}
+.pricing-desc{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6;}
+.pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.pricing-feature{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text2);}
+.pf-check{width:16px;height:16px;border-radius:50%;background:rgba(34,197,94,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.pf-x{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.btn-pricing{
+  width:100%;border:none;border-radius:var(--radius);padding:13px;
+  font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);
+  transition:all 0.2s;
+}
+.btn-pricing.primary{background:var(--saffron);color:#fff;}
+.btn-pricing.primary:hover{background:var(--saffron2);transform:translateY(-1px);}
+.btn-pricing.ghost{background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);}
+.btn-pricing.ghost:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+
+/* METHODOLOGY TRUST STRIP */
+.methodology-strip{
+  background:rgba(255,255,255,0.02);border-top:1px solid var(--border);
+  padding:20px 2rem;display:flex;align-items:center;justify-content:center;
+  gap:24px;flex-wrap:wrap;
+}
+.method-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);}
+.method-dot{width:6px;height:6px;border-radius:50%;background:var(--saffron);flex-shrink:0;}
+
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr;}}
+
+/* SCROLL FADE IN */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* DROPDOWN */
+.dropdown{position:relative;}
+.dropdown-menu{
+  display:none;position:absolute;top:calc(100% + 4px);left:0;
+  background:var(--navy2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);min-width:260px;padding:8px 0;z-index:300;
+  box-shadow:0 16px 48px rgba(0,0,0,0.5);
+}
+.dropdown:hover .dropdown-menu{display:block;}
+.dd-section{padding:8px 14px 4px;font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;}
+.dd-item{display:block;padding:8px 14px;font-size:13.5px;color:var(--text2);text-decoration:none;cursor:pointer;}
+.dd-item:hover{background:rgba(255,255,255,0.04);color:var(--saffron2);}
+.dd-divider{height:1px;background:var(--border);margin:4px 0;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .form-grid{grid-template-columns:1fr 1fr;}
+  .results-metrics{grid-template-columns:1fr 1fr;}
+  .tools-grid{grid-template-columns:1fr 1fr;}
+  .analysis-grid,.tax-inner{grid-template-columns:1fr;}
+  .trust-grid{grid-template-columns:1fr 1fr;}
+  .compare-grid,.compare-results{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  .form-grid,.form-row{grid-template-columns:1fr;}
+  .tool-tabs .tool-tab span{display:none;}
+  .nav-tabs{display:none;}
+  .footer-top{flex-direction:column;}
+  .footer-cols{flex-wrap:wrap;gap:28px;}
+  .hero h1{font-size:38px;letter-spacing:-1.5px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    </div>
+    <span class="nav-logo-text">Quant Edge</span>
+    <span class="nav-logo-tag">INDIA</span>
+  </a>
+  <div class="nav-tabs">
+    <a href="#" class="nav-tab active">Analysis</a>
+    <a href="#tools-section" class="nav-tab">Tools</a>
+    <div class="dropdown">
+      <span class="nav-tab">Markets <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:4px;"><polyline points="6 9 12 15 18 9"/></svg></span>
+      <div class="dropdown-menu">
+        <div class="dd-section">Indices</div>
+        <a href="#" class="dd-item">Nifty 50 Overview</a>
+        <a href="#" class="dd-item">Nifty Midcap 150</a>
+        <a href="#" class="dd-item">Bank Nifty</a>
+        <div class="dd-divider"></div>
+        <div class="dd-section">Mutual Funds</div>
+        <a href="#" class="dd-item">Large Cap Funds</a>
+        <a href="#" class="dd-item">Flexi Cap Funds</a>
+        <a href="#" class="dd-item">ELSS Funds</a>
+        <div class="dd-divider"></div>
+        <div class="dd-section">Commodities</div>
+        <a href="#" class="dd-item">Gold (MCX)</a>
+        <a href="#" class="dd-item">Silver (MCX)</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <span class="nav-tab">Tax Tools <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:4px;"><polyline points="6 9 12 15 18 9"/></svg></span>
+      <div class="dropdown-menu">
+        <div class="dd-section">Capital Gains</div>
+        <a href="#" class="dd-item">STCG / LTCG Calculator</a>
+        <a href="#" class="dd-item">Tax-loss Harvesting</a>
+        <div class="dd-divider"></div>
+        <div class="dd-section">Tax Saving</div>
+        <a href="#" class="dd-item">ELSS 80C Optimiser</a>
+        <a href="#" class="dd-item">NPS / PPF Modeller</a>
+      </div>
+    </div>
+    <a href="#pricing" class="nav-tab">Pricing</a>
+  </div>
+  <div class="nav-right">
+    <div class="badge-india">🇮🇳 NSE · BSE · AMFI</div>
+    <a href="#" class="btn-login">Log in</a>
+    <a href="#" class="btn-signup">Get started free</a>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <div class="pulse-dot"></div>
+    India's post-tax portfolio intelligence platform
+  </div>
+  <h1>Your returns look great.<br><em>Until tax.</em></h1>
+  <p class="hero-sub">
+    Most Indian investors are silently losing <strong>2–4% annually to avoidable tax.</strong>
+    Quant Edge shows you exactly what you keep — and how to keep more.
+  </p>
+
+  <!-- HERO TOOL CARD -->
+  <div class="hero-tool fade-in visible">
+    <div class="tool-tabs">
+      <div class="tool-tab active" onclick="switchTab('sip')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>SIP Backtest</span>
+      </div>
+      <div class="tool-tab" onclick="switchTab('tax')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span>Tax Calculator</span>
+      </div>
+      <div class="tool-tab" onclick="switchTab('compare')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Compare Funds</span>
+      </div>
+      <div class="tool-tab" onclick="switchTab('retire')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Retirement</span>
+      </div>
+      <div class="tool-tab" onclick="switchTab('upload')" style="position:relative;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span>Upload Portfolio</span>
+        <span style="position:absolute;top:8px;right:6px;font-size:8px;background:#4ade80;color:#052e16;border-radius:3px;padding:1px 5px;font-weight:800;letter-spacing:0.3px;">WOW</span>
+      </div>
+    </div>
+
+    <!-- SIP BACKTEST PANEL -->
+    <div class="tool-panel active" id="panel-sip">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Monthly SIP Amount</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="sipAmount" type="text" value="10,000" oninput="formatAmount(this)"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Index / Fund</label>
+          <select class="form-select" id="sipFund">
+            <option value="nifty50">Nifty 50 TRI</option>
+            <option value="midcap150">Nifty Midcap 150 TRI</option>
+            <option value="smallcap250">Nifty Smallcap 250 TRI</option>
+            <option value="niftynext50">Nifty Next 50 TRI</option>
+            <option value="bankniifty">Bank Nifty TRI</option>
+            <option value="gold">Gold (MCX)</option>
+            <option value="ppfas">Parag Parikh Flexi Cap (MF)</option>
+            <option value="hdfc">HDFC Flexi Cap Fund (MF)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Investment Period</label>
+          <select class="form-select" id="sipYears">
+            <option value="5">5 Years</option>
+            <option value="10" selected>10 Years</option>
+            <option value="15">15 Years</option>
+            <option value="20">20 Years</option>
+            <option value="25">25 Years</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Annual Step-up (%)</label>
+          <select class="form-select" id="sipStepup">
+            <option value="0">No step-up</option>
+            <option value="5">5% per year</option>
+            <option value="10" selected>10% per year</option>
+            <option value="15">15% per year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Income Tax Slab</label>
+          <select class="form-select" id="taxSlab">
+            <option value="0">Nil (below ₹3L)</option>
+            <option value="5">5% (₹3L–7L)</option>
+            <option value="10">10% (₹7L–10L)</option>
+            <option value="15">15% (₹10L–12L)</option>
+            <option value="20">20% (₹12L–15L)</option>
+            <option value="30" selected>30% (above ₹15L)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-analyse" onclick="runSIP()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Analyse SIP Returns
+      </button>
+
+      <div class="loading-overlay" id="sipLoading">
+        <div class="spinner"></div>
+        <div class="loading-text">Running backtest on 25 years of Nifty data…</div>
+      </div>
+
+      <div class="results-area" id="sipResults">
+        <div class="results-metrics" id="sipMetrics"></div>
+        <div class="chart-container">
+          <div class="chart-header">
+            <div class="chart-title" id="chartTitle">Portfolio Corpus Growth</div>
+            <div class="chart-legend" id="chartLegend"></div>
+          </div>
+          <div style="position:relative;height:220px;">
+            <canvas id="sipChart"></canvas>
+          </div>
+        </div>
+        <div class="tax-breakdown" id="taxBreakdown"></div>
+        <button class="share-btn" onclick="shareResult()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share this result — <span id="sharePreview"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- TAX CALCULATOR PANEL -->
+    <div class="tool-panel" id="panel-tax">
+      <div class="tax-calc-grid">
+        <div class="form-group">
+          <label class="form-label">Asset Type</label>
+          <select class="form-select" id="taxAsset" onchange="calcTax()">
+            <option value="equity">Equity / Equity MF</option>
+            <option value="debt">Debt MF / Bonds</option>
+            <option value="gold">Gold ETF / SGB</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Purchase Value (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="taxCost" type="text" value="5,00,000" oninput="formatAmount(this);calcTax()"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sale Value (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="taxSale" type="text" value="8,50,000" oninput="formatAmount(this);calcTax()"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Holding Period</label>
+          <select class="form-select" id="taxHolding" onchange="calcTax()">
+            <option value="stcg">Less than 1 year (STCG)</option>
+            <option value="ltcg" selected>More than 1 year (LTCG)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Income Tax Slab</label>
+          <select class="form-select" id="taxSlabT" onchange="calcTax()">
+            <option value="5">5%</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30" selected>30%</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">LTCG already used this year (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="taxLtcgUsed" type="text" value="0" oninput="formatAmount(this);calcTax()"/>
+          </div>
+        </div>
+      </div>
+      <div class="tax-result-box" id="taxResult">
+        <div class="tax-result-title">Tax Liability — FY 2024–25</div>
+        <div id="taxRows"></div>
+        <div class="tax-note" id="taxNote"></div>
+      </div>
+    </div>
+
+    <!-- COMPARE PANEL -->
+    <div class="tool-panel" id="panel-compare">
+      <div class="compare-grid">
+        <div class="compare-side">
+          <div class="compare-side-label a">Portfolio A</div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Fund / Index</label>
+            <select class="form-select" id="cmpA">
+              <option value="nifty50">Nifty 50 TRI</option>
+              <option value="midcap150">Nifty Midcap 150 TRI</option>
+              <option value="smallcap250">Nifty Smallcap 250 TRI</option>
+              <option value="gold">Gold (MCX)</option>
+              <option value="ppfas">Parag Parikh Flexi Cap</option>
+              <option value="hdfc">HDFC Flexi Cap Fund</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Monthly SIP (₹)</label>
+            <div class="input-prefix">
+              <span class="rupee">₹</span>
+              <input class="form-input" id="cmpAmtA" type="text" value="10,000"/>
+            </div>
+          </div>
+        </div>
+        <div class="compare-side">
+          <div class="compare-side-label b">Portfolio B</div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Fund / Index</label>
+            <select class="form-select" id="cmpB">
+              <option value="nifty50">Nifty 50 TRI</option>
+              <option value="midcap150" selected>Nifty Midcap 150 TRI</option>
+              <option value="smallcap250">Nifty Smallcap 250 TRI</option>
+              <option value="gold">Gold (MCX)</option>
+              <option value="ppfas">Parag Parikh Flexi Cap</option>
+              <option value="hdfc">HDFC Flexi Cap Fund</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Monthly SIP (₹)</label>
+            <div class="input-prefix">
+              <span class="rupee">₹</span>
+              <input class="form-input" id="cmpAmtB" type="text" value="10,000"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label class="form-label">Comparison Period</label>
+        <select class="form-select" id="cmpYears" style="max-width:200px;">
+          <option value="5">5 Years</option>
+          <option value="10" selected>10 Years</option>
+          <option value="15">15 Years</option>
+          <option value="20">20 Years</option>
+        </select>
+      </div>
+      <button class="btn-analyse" onclick="runCompare()">Compare Portfolios →</button>
+      <div class="loading-overlay" id="cmpLoading"></div>
+      <div class="results-area" id="cmpResults" style="margin-top:20px;">
+        <div class="compare-results" id="cmpMetrics"></div>
+        <div class="chart-container">
+          <div class="chart-header">
+            <div class="chart-title">Corpus Growth Comparison</div>
+            <div class="chart-legend" id="cmpLegend"></div>
+          </div>
+          <div style="position:relative;height:220px;">
+            <canvas id="cmpChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RETIREMENT PANEL -->
+    <div class="tool-panel" id="panel-retire">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Current Age</label>
+          <input class="form-input" id="retAge" type="number" value="30"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Retirement Age</label>
+          <input class="form-input" id="retTarget" type="number" value="60"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly SIP (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="retSIP" type="text" value="25,000"/>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Expected Monthly Expenses at Retirement (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="retExpenses" type="text" value="1,00,000"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EPF / NPS / PPF Already Accumulated (₹)</label>
+          <div class="input-prefix">
+            <span class="rupee">₹</span>
+            <input class="form-input" id="retExisting" type="text" value="5,00,000"/>
+          </div>
+        </div>
+      </div>
+      <button class="btn-analyse" onclick="runRetire()">Calculate Retirement Corpus →</button>
+      <div class="results-area" id="retResults" style="margin-top:20px;">
+        <div class="results-metrics" id="retMetrics"></div>
+        <div class="chart-container">
+          <div class="chart-header"><div class="chart-title">Corpus Projection (Monte Carlo — 1000 simulations)</div></div>
+          <div style="position:relative;height:220px;"><canvas id="retChart"></canvas></div>
+        </div>
+        <div class="tax-breakdown" id="retInsight" style="border-color:rgba(255,107,0,0.2);background:rgba(255,107,0,0.05);"></div>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO UPLOAD PANEL -->
+    <div class="tool-panel" id="panel-upload">
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('csvFile').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
+        <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="handleCSVUpload(this.files[0])"/>
+        <div class="upload-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--saffron)" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="upload-title">Drop your portfolio CSV here</div>
+        <div class="upload-sub">Supports Zerodha, Groww, Angel One, Kite exports · or <span style="color:var(--saffron)">browse file</span></div>
+        <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <div class="broker-pill">Zerodha</div>
+          <div class="broker-pill">Groww</div>
+          <div class="broker-pill">Angel One</div>
+          <div class="broker-pill">Any CSV</div>
+        </div>
+      </div>
+
+      <!-- Demo button -->
+      <div style="text-align:center;margin-top:12px;">
+        <button class="demo-btn" onclick="loadDemoPortfolio()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Try with sample Zerodha portfolio
+        </button>
+      </div>
+
+      <!-- Upload Results -->
+      <div id="uploadResults" style="display:none;margin-top:20px;">
+        <!-- Report Card Header -->
+        <div class="report-card" id="reportCard">
+          <div class="report-card-header">
+            <div>
+              <div class="report-badge">📊 Portfolio Intelligence Report</div>
+              <div class="report-title" id="reportTitle">My Portfolio</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">Generated by</div>
+              <div style="font-size:13px;font-weight:700;color:var(--saffron);">Quant Edge India</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:2px;" id="reportDate"></div>
+            </div>
+          </div>
+
+          <!-- FINANCIAL HEALTH SCORE -->
+          <div class="health-score-wrap" id="healthScoreWrap">
+            <div class="health-dial">
+              <svg width="88" height="88" viewBox="0 0 88 88">
+                <circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="7"/>
+                <circle id="healthArc" cx="44" cy="44" r="36" fill="none" stroke="var(--saffron)" stroke-width="7"
+                  stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="226"
+                  style="transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1),stroke 0.5s;"/>
+              </svg>
+              <div class="health-dial-label">
+                <div class="health-score-num" id="healthNum">0</div>
+                <div class="health-score-max">/100</div>
+                <div class="health-grade" id="healthGrade"></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Financial Health Score</div>
+              <div class="health-bars" id="healthBars"></div>
+            </div>
+          </div>
+
+          <div class="results-metrics" id="uploadMetrics" style="margin-bottom:16px;"></div>
+
+          <!-- Holdings Table -->
+          <div class="holdings-wrap">
+            <div class="holdings-header">
+              <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;">Holdings</div>
+              <div style="font-size:11px;color:var(--text3);" id="holdingsCount"></div>
+            </div>
+            <table class="holdings-table">
+              <thead><tr>
+                <th>Stock / Fund</th>
+                <th class="r">Qty</th>
+                <th class="r">Avg Cost</th>
+                <th class="r">Gain/Loss</th>
+                <th class="r">Type</th>
+                <th class="r">Est. Tax</th>
+              </tr></thead>
+              <tbody id="holdingsBody"></tbody>
+            </table>
+          </div>
+
+          <!-- Tax Summary (always visible) -->
+          <div id="uploadTaxSummary" style="margin-top:16px;"></div>
+
+          <!-- PAYWALL SECTION — Tax Optimisation Insights -->
+          <div class="paywall-section" id="paywallSection">
+            <div id="paywallBlurContent" class="paywall-blur">
+              <div class="paywall-blur-content">
+                <div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">🔬 Tax Optimisation Insights</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);border-radius:8px;padding:12px;">
+                    <div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:3px;">⚡ Harvest opportunity detected</div>
+                    <div style="font-size:12px;color:var(--text2);">You can save ₹XX,XXX in tax by booking losses in 3 positions before 31 March.</div>
+                  </div>
+                  <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:8px;padding:12px;">
+                    <div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:3px;">📅 Optimal exit dates</div>
+                    <div style="font-size:12px;color:var(--text2);">Waiting 47 more days on HDFC BANK converts ₹XX,XXX from STCG (20%) to LTCG (12.5%).</div>
+                  </div>
+                  <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:12px;">
+                    <div style="font-size:12px;font-weight:700;color:#f87171;margin-bottom:3px;">⚠️ Concentration risk</div>
+                    <div style="font-size:12px;color:var(--text2);">Top 2 holdings = 68% of portfolio. Diversification score: 42/100.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- GATE OVERLAY -->
+            <div class="paywall-gate" id="paywallGate">
+              <div class="paywall-lock">🔒</div>
+              <div class="paywall-title">Unlock your full tax report</div>
+              <div class="paywall-sub">Enter your email to see tax-saving insights, optimal exit dates, and your personalised recommendations.</div>
+              <div class="email-gate-form">
+                <div class="email-gate-row">
+                  <input class="gate-input" id="gateEmail" type="email" placeholder="your@email.com"/>
+                  <button class="gate-submit" onclick="unlockReport()">Unlock free →</button>
+                </div>
+                <div class="gate-privacy">🔒 No spam. Unsubscribe anytime. Your data stays private.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIRAL UNLOCK BANNER -->
+          <div class="viral-unlock" id="viralUnlock" onclick="shareAndUnlock()">
+            <div class="viral-icon">🚀</div>
+            <div class="viral-text">
+              <div class="viral-title">Share on LinkedIn → Unlock 1 premium insight free</div>
+              <div class="viral-sub">Share your result with your network and instantly unlock advanced tax analysis.</div>
+            </div>
+            <div class="viral-arrow">→</div>
+          </div>
+
+          <!-- ADVISORY CTA -->
+          <div class="advisory-cta" id="advisoryCta" style="display:none;">
+            <div>
+              <div class="advisory-tag">EXPERT REVIEW</div>
+              <div class="advisory-title">Your portfolio has a tax inefficiency problem</div>
+              <div class="advisory-desc">A SEBI-registered advisor can review your holdings, optimise exit timing, and potentially save you thousands in tax this financial year.</div>
+              <div class="advisory-inefficiency" id="advisoryAmount"></div>
+            </div>
+            <button class="btn-advisory" onclick="showToast('Booking advisory call... (coming soon)')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-.65a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.52v-.6z"/></svg>
+              Book free call
+            </button>
+          </div>
+
+          <!-- Shareable Report Buttons (shown after unlock) -->
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;" id="reportActions">
+            <button class="share-btn" onclick="sharePortfolioReport()" style="flex:1;min-width:160px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share Report (LinkedIn)
+            </button>
+            <button class="share-btn" onclick="savePortfolio()" style="flex:1;min-width:160px;border-color:rgba(34,197,94,0.3);color:#4ade80;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save to Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- Saved Portfolios -->
+        <div id="savedPortfoliosSection" style="margin-top:20px;display:none;">
+          <div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">💾 Saved Portfolios</div>
+          <div id="savedPortfoliosList"></div>
+        </div>
+      </div>
+
+      <!-- CSV Format Guide -->
+      <div class="csv-guide">
+        <div class="csv-guide-title">📋 Expected CSV format (any broker)</div>
+        <div class="csv-guide-row">
+          <code>symbol, quantity, buy_price, buy_date</code>
+        </div>
+        <div style="font-size:11.5px;color:var(--text3);margin-top:6px;">Column names are auto-detected. Zerodha & Groww exports work directly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:80px;"></div>
+</section>
+
+<!-- MARKET MONITOR -->
+<section style="background:rgba(0,0,0,0.15);border-top:1px solid var(--border);">
+  <div class="section fade-in">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">Market Monitor — Indian Lazy Portfolios</div>
+        <div class="sec-sub">Backtested performance of popular passive strategies on NSE/BSE</div>
+      </div>
+      <div class="live-pill"><div class="live-dot2"></div>Updated daily</div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="mkt-table">
+        <thead><tr>
+          <th>Portfolio</th>
+          <th class="r">YTD</th>
+          <th class="r">1Y</th>
+          <th class="r">3Y CAGR</th>
+          <th class="r">5Y CAGR</th>
+          <th class="r">Sharpe</th>
+          <th class="r">Max DD</th>
+        </tr></thead>
+        <tbody id="mktTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS GRID -->
+<div class="tools-bg fade-in" id="tools-section">
+  <div class="tools-inner">
+    <div class="tools-hl">
+      <h2>Built for Indian Investors — not adapted from US tools</h2>
+      <p>Every feature calibrated for NSE, BSE, SEBI-registered mutual funds, and the Indian tax code.</p>
+    </div>
+    <div class="tools-grid">
+      <a href="#" class="tool-card star">
+        <div class="tool-icon" style="background:var(--saffron-dim);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--saffron)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="hot-tag">Popular</span>
+        <h3>SIP Backtest</h3>
+        <p>Simulate step-up SIPs on any Nifty index or mutual fund with post-tax XIRR.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:rgba(239,68,68,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <span class="new-tag">Updated</span>
+        <h3>STCG / LTCG Calculator</h3>
+        <p>Budget 2024 compliant. 12.5% LTCG, 20% STCG, ₹1L exemption logic built in.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:var(--blue-dim);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <h3>Mutual Fund Screener</h3>
+        <p>Screen 1,400+ SEBI-registered funds by Sharpe, CAGR, expense ratio, and AUM.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:var(--india-green-dim);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>ELSS Optimiser</h3>
+        <p>Find the best Section 80C ELSS fund by lock-in CAGR, consistency, and risk.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:rgba(251,191,36,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Retirement Planner</h3>
+        <p>Monte Carlo simulation in ₹ — includes EPF, NPS, PPF, and inflation adjustment.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:rgba(167,139,250,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3>Tax-loss Harvesting</h3>
+        <p>Identify unrealised losses to offset LTCG before 31 March deadline.</p>
+      </a>
+      <a href="#" onclick="switchTab('upload');document.querySelector('.hero-tool').scrollIntoView({behavior:'smooth'});return false;" class="tool-card star">
+        <div class="tool-icon" style="background:rgba(34,197,94,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <span class="hot-tag">⚡ New</span>
+        <h3>Portfolio CSV Upload</h3>
+        <p>Upload Zerodha, Groww, or Angel One CSV. Instant XIRR, tax liability &amp; shareable report in 5 seconds.</p>
+      </a>
+      <a href="#" class="tool-card">
+        <div class="tool-icon" style="background:var(--blue-dim);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Efficient Frontier</h3>
+        <p>Optimize allocations across Indian indices to maximise Sharpe ratio.</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSIS SECTION -->
+<section>
+  <div class="analysis-wrap fade-in">
+    <div class="analysis-grid">
+      <div class="analysis-text">
+        <h2>Design. Analyse.<br><span>Compare.</span></h2>
+        <p>Run a full SIP backtest on any combination of Nifty indices, Indian stocks, or mutual funds since 2000 — with realistic rebalancing, step-up SIPs, and post-tax returns.</p>
+        <ul class="check-list">
+          <li>
+            <div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Nifty 50, Midcap 150, Smallcap 250, Bank Nifty, Nifty Next 50 — all as TRI
+          </li>
+          <li>
+            <div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Annual step-up SIP with real CPI inflation adjustment
+          </li>
+          <li>
+            <div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Post-tax XIRR with STCG/LTCG computed at exit
+          </li>
+          <li>
+            <div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Compare against Nifty 50 TRI or Sensex TRI benchmark
+          </li>
+        </ul>
+      </div>
+      <div class="perf-card">
+        <div class="perf-hdr">
+          <span class="perf-title">₹10,000/mo SIP — Nifty 50 TRI vs Midcap 150</span>
+          <span class="perf-period">10 years</span>
+        </div>
+        <div style="position:relative;height:160px;margin-bottom:16px;">
+          <canvas id="staticChart"></canvas>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;">Corpus</div>
+            <div style="font-size:17px;font-weight:700;color:#4ade80;font-family:var(--mono);">₹38.2L</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;">XIRR</div>
+            <div style="font-size:17px;font-weight:700;color:#fff;font-family:var(--mono);">15.4%</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;">Post-tax</div>
+            <div style="font-size:17px;font-weight:700;color:var(--saffron);font-family:var(--mono);">₹34.8L</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:14px;">
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text3);"><span style="width:12px;height:2px;background:var(--saffron);display:inline-block;border-radius:2px;"></span>Nifty 50 TRI</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text3);"><span style="width:12px;height:2px;background:#60a5fa;display:inline-block;border-radius:2px;opacity:0.7;"></span>Midcap 150</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAX SECTION -->
+<div class="tax-section fade-in">
+  <div class="tax-inner">
+    <div class="tax-text">
+      <div class="tax-eyebrow">🏛️ India-specific tax tools <span class="budget-pill">Budget 2024</span></div>
+      <h2>Your edge is post-tax returns — not pre-tax</h2>
+      <p style="font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:20px;">
+        Most tools show gross returns. Real investors care about what they keep after STCG, LTCG, and dividend tax. We model the Indian tax code exactly — updated for every Budget change.
+      </p>
+      <ul class="check-list">
+        <li><div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Budget 2024: 12.5% LTCG (equity), 20% STCG (equity)</li>
+        <li><div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Debt funds at applicable slab rate (post-April 2023)</li>
+        <li><div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>₹1.25 lakh LTCG exemption with FY tracking</li>
+        <li><div class="check-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Surcharge on LTCG for income above ₹50L</li>
+      </ul>
+    </div>
+    <div class="tax-cards-list">
+      <div class="tax-feature-card">
+        <div class="tfc-icon" style="background:rgba(239,68,68,0.1);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div><div class="tfc-title">STCG / LTCG Calculator</div><div class="tfc-desc">Instant FY 2024–25 tax liability on equity, debt, and gold transactions.</div></div>
+      </div>
+      <div class="tax-feature-card">
+        <div class="tfc-icon" style="background:var(--india-green-dim);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div><div class="tfc-title">ELSS Section 80C Optimiser</div><div class="tfc-desc">Compare lock-in CAGR and find the best ELSS for your tax slab.</div></div>
+      </div>
+      <div class="tax-feature-card">
+        <div class="tfc-icon" style="background:var(--blue-dim);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div><div class="tfc-title">Tax-loss Harvesting Scanner</div><div class="tfc-desc">Spot unrealised losses to book before 31 March and offset capital gains.</div></div>
+      </div>
+      <div class="tax-feature-card">
+        <div class="tfc-icon" style="background:rgba(251,191,36,0.1);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div><div class="tfc-title">NPS / PPF / EPF Modeller</div><div class="tfc-desc">Add tax-advantaged instruments to your retirement projection for true post-tax corpus.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust-wrap fade-in">
+  <div class="trust-inner">
+    <h2>Built for India. By Indian investors.</h2>
+    <p>Every data point, every tool, every return metric is calibrated for rupees, the Indian tax code, and the NSE/BSE universe — not adapted from a US platform.</p>
+    <div class="trust-grid">
+      <div class="trust-stat">
+        <div class="trust-stat-num"><span>5,000</span>+</div>
+        <div class="trust-stat-lbl">NSE/BSE Listed Stocks</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num"><span>1,400</span>+</div>
+        <div class="trust-stat-lbl">SEBI-registered Mutual Funds</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num"><span>25</span> Yrs</div>
+        <div class="trust-stat-lbl">Nifty TRI Historical Data</div>
+      </div>
+      <div class="trust-stat">
+        <div class="trust-stat-num">₹ <span>Only</span></div>
+        <div class="trust-stat-lbl">100% India-exclusive focus</div>
+      </div>
+    </div>
+    <div class="sebi-strip">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Data sourced from NSE, AMFI, RBI &amp; MCX. Total Return Index (TRI) used throughout.
+    </div>
+  </div>
+</div>
+
+<!-- METHODOLOGY STRIP -->
+<div class="methodology-strip">
+  <div class="method-item"><div class="method-dot"></div>NSE Bhavcopy — daily price series</div>
+  <div class="method-item"><div class="method-dot"></div>AMFI NAV database — 1,400+ MFs</div>
+  <div class="method-item"><div class="method-dot"></div>Total Return Index (TRI), not price returns</div>
+  <div class="method-item"><div class="method-dot"></div>Budget 2024 tax rules, updated March 2025</div>
+  <div class="method-item"><div class="method-dot"></div>FIFO cost basis methodology</div>
+  <div class="method-item"><div class="method-dot"></div>XIRR, not simple CAGR</div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-section fade-in" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <h2>Simple, honest pricing</h2>
+      <p>Start free. Upgrade when your portfolio deserves serious analytics.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">₹0</span>
+          <span class="pricing-period">/ month</span>
+        </div>
+        <div class="pricing-desc">Everything you need to get started — no card required.</div>
+        <div class="pricing-features">
+          <div class="pricing-feature">
+            <div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            SIP Backtest (all Nifty indices)
+          </div>
+          <div class="pricing-feature">
+            <div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            STCG / LTCG Tax Calculator
+          </div>
+          <div class="pricing-feature">
+            <div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Portfolio comparison (2 funds)
+          </div>
+          <div class="pricing-feature">
+            <div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Market monitor (lazy portfolios)
+          </div>
+          <div class="pricing-feature" style="opacity:0.4;">
+            <div class="pf-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Portfolio CSV upload (3 uploads/mo)
+          </div>
+          <div class="pricing-feature" style="opacity:0.4;">
+            <div class="pf-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            Saved portfolios &amp; alerts
+          </div>
+        </div>
+        <button class="btn-pricing ghost" onclick="showToast('Creating your free account...')">Get started free</button>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card featured">
+        <div class="pricing-featured-badge">MOST POPULAR</div>
+        <div class="pricing-tier" style="color:var(--saffron);">Pro</div>
+        <div class="pricing-price">
+          <span class="pricing-amount" style="color:var(--saffron2);">₹499</span>
+          <span class="pricing-period">/ month</span>
+        </div>
+        <div class="pricing-desc">For serious investors who track their actual portfolio, not just theory.</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Everything in Free</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Unlimited portfolio CSV uploads</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Real XIRR with dated cashflows</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Save &amp; track portfolios over time</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Tax-loss harvesting scanner</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Monthly tax exposure alerts (email)</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Shareable PDF report card</div>
+        </div>
+        <button class="btn-pricing primary" onclick="showToast('Starting Pro trial...')">Start 14-day free trial</button>
+      </div>
+
+      <!-- ADVISOR -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Advisor</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">₹2,999</span>
+          <span class="pricing-period">/ month</span>
+        </div>
+        <div class="pricing-desc">For CAs, wealth advisors, and finance professionals managing multiple clients.</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Everything in Pro</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Up to 50 client portfolios</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>White-label branded reports</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>FIFO audit trail (CA-ready)</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Bulk CSV import (Zerodha, Groww)</div>
+          <div class="pricing-feature"><div class="pf-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Priority support + API access</div>
+        </div>
+        <button class="btn-pricing ghost" onclick="showToast('Contact us for Advisor plan →')">Contact us</button>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:24px;font-size:12px;color:var(--text3);">
+      All prices include GST. Annual billing saves 20%. No lock-in — cancel anytime.
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap fade-in">
+  <div class="cta-inner">
+    <h2>Upload your portfolio.<br><em>See what you actually keep.</em></h2>
+    <p>Drop your Zerodha or Groww CSV. Get XIRR, tax liability, and a shareable report — in under 30 seconds. Free forever.</p>
+    <div class="cta-btns">
+      <a href="#" onclick="switchTab('upload');document.querySelector('.hero-tool').scrollIntoView({behavior:'smooth'});return false;" class="btn-cta-main">Upload portfolio free →</a>
+      <a href="#pricing" class="btn-cta-ghost">View pricing</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="nav-logo-mark" style="width:26px;height:26px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span style="color:#fff;font-size:15px;font-weight:700;">Quant Edge India</span>
+        </div>
+        <p>Professional portfolio analytics and backtesting for Indian investors — NSE, BSE, and SEBI-registered mutual funds.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Tools</h4>
+          <a href="#">SIP Backtest</a>
+          <a href="#">Portfolio CSV Upload</a>
+          <a href="#">STCG / LTCG Calculator</a>
+          <a href="#">ELSS Optimiser</a>
+          <a href="#">MF Screener</a>
+          <a href="#">Retirement Planner</a>
+        </div>
+        <div class="footer-col">
+          <h4>Markets</h4>
+          <a href="#">Nifty 50 Overview</a>
+          <a href="#">Indian Lazy Portfolios</a>
+          <a href="#">Factor Performance</a>
+          <a href="#">Gold vs Equity</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Pricing</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">FAQ</a>
+          <a href="#">Methodology</a>
+          <a href="#">API</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-legal">© 2026 Quant Edge India. All rights reserved.</span>
+      <div class="footer-links-row">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Disclaimer</a>
+      </div>
+    </div>
+    <div class="disclaimer">
+      Quant Edge India provides tools for educational and research purposes only. Historical performance data is sourced from NSE, BSE, AMFI, RBI, and MCX. Past performance is not indicative of future returns. This platform is not registered with SEBI as an investment adviser. All return calculations use Total Return Index (TRI) data. Tax calculations are indicative — please consult a qualified CA for personalised advice.
+    </div>
+  </div>
+</footer>
+
+<!-- EMAIL CAPTURE MODAL -->
+<div class="modal-overlay" id="emailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('emailModal')">×</button>
+    <div class="modal-emoji">📊</div>
+    <div class="modal-title">Your full report is ready</div>
+    <div class="modal-sub">Enter your details to unlock <span class="modal-highlight">tax-saving insights, optimal exit dates, and personalised recommendations</span> for your portfolio.</div>
+    <div class="modal-benefits">
+      <div class="modal-benefit"><span class="modal-benefit-icon">✓</span> Tax harvesting opportunities identified</div>
+      <div class="modal-benefit"><span class="modal-benefit-icon">✓</span> Optimal exit dates to minimise STCG</div>
+      <div class="modal-benefit"><span class="modal-benefit-icon">✓</span> Concentration & risk warnings</div>
+      <div class="modal-benefit"><span class="modal-benefit-icon">✓</span> Monthly tax exposure alerts (email)</div>
+    </div>
+    <div class="modal-input-group">
+      <input class="modal-input" id="modalName" type="text" placeholder="Your name"/>
+      <input class="modal-input" id="modalEmail" type="email" placeholder="your@email.com"/>
+      <input class="modal-input" id="modalPhone" type="tel" placeholder="Mobile number (optional)"/>
+    </div>
+    <button class="modal-submit" onclick="submitEmailGate()">Unlock my full report →</button>
+    <div class="modal-privacy">🔒 No spam ever. Your data is never sold. Unsubscribe in one click.</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon"></div>
+  <span id="toastMsg">Copied to clipboard!</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+
+/* ══════════════════════════════════════════
+   DATA LAYER — calibrated Indian market returns
+══════════════════════════════════════════ */
+const FUND_DATA = {
+  nifty50:      { name:'Nifty 50 TRI',         cagr:14.2, stddev:17.5, sharpe:0.74, maxdd:-38, color:'#FF6B00' },
+  midcap150:    { name:'Nifty Midcap 150 TRI',  cagr:16.8, stddev:21.2, sharpe:0.72, maxdd:-45, color:'#60a5fa' },
+  smallcap250:  { name:'Nifty Smallcap 250 TRI',cagr:17.9, stddev:26.1, sharpe:0.63, maxdd:-57, color:'#a78bfa' },
+  niftynext50:  { name:'Nifty Next 50 TRI',     cagr:15.4, stddev:20.1, sharpe:0.70, maxdd:-42, color:'#34d399' },
+  bankniifty:   { name:'Bank Nifty TRI',        cagr:15.1, stddev:22.3, sharpe:0.62, maxdd:-50, color:'#f59e0b' },
+  gold:         { name:'Gold (MCX)',             cagr:10.2, stddev:13.8, sharpe:0.52, maxdd:-22, color:'#fbbf24' },
+  ppfas:        { name:'Parag Parikh Flexi Cap', cagr:16.1, stddev:16.4, sharpe:0.88, maxdd:-33, color:'#4ade80' },
+  hdfc:         { name:'HDFC Flexi Cap Fund',    cagr:15.3, stddev:18.2, sharpe:0.76, maxdd:-40, color:'#f472b6' },
+};
+
+const MARKET_DATA = [
+  { name:'Nifty 50 + Gold (90/10)',         tag:'india', ytd:4.82, y1:19.73, y3:14.91, y5:13.44, sharpe:1.42, maxdd:-28 },
+  { name:'Nifty All-Season Portfolio',      tag:'nifty', ytd:3.14, y1:17.68, y3:13.55, y5:12.30, sharpe:1.38, maxdd:-22 },
+  { name:'Nifty 50 + Midcap 150 (70/30)',   tag:'nifty', ytd:-1.22,y1:22.14, y3:16.08, y5:15.10, sharpe:1.29, maxdd:-37 },
+  { name:'Flexi Cap + Smallcap (60/40 MF)', tag:'mf',    ytd:-2.47,y1:24.33, y3:17.22, y5:16.88, sharpe:1.21, maxdd:-41 },
+  { name:'Nifty 50 + Debt (80/20)',         tag:'india', ytd:1.95, y1:15.44, y3:11.73, y5:10.80, sharpe:1.55, maxdd:-20 },
+  { name:'Nifty Next 50 Pure Growth',       tag:'nifty', ytd:-3.81,y1:26.77, y3:15.40, y5:14.20, sharpe:1.10, maxdd:-44 },
+  { name:'Parag Parikh + PPFAS Arbitrage',  tag:'mf',    ytd:2.31, y1:18.90, y3:14.17, y5:13.50, sharpe:1.48, maxdd:-29 },
+  { name:'Nifty 500 Value + Gold',          tag:'nifty', ytd:5.63, y1:21.02, y3:13.89, y5:12.70, sharpe:1.33, maxdd:-31 },
+  { name:'Equal-weight Nifty Sectors',      tag:'nifty', ytd:-0.47,y1:20.55, y3:14.62, y5:13.80, sharpe:1.18, maxdd:-36 },
+  { name:'ELSS + Nifty 50 (Tax-efficient)', tag:'india', ytd:1.07, y1:16.88, y3:13.04, y5:12.10, sharpe:1.27, maxdd:-30 },
+];
+
+const TICKER_DATA = [
+  {name:'NIFTY 50',val:'24,317.65',chg:'+0.43%',up:true},
+  {name:'SENSEX',val:'80,124.10',chg:'+0.38%',up:true},
+  {name:'BANK NIFTY',val:'52,680.40',chg:'+0.61%',up:true},
+  {name:'NIFTY MID 150',val:'18,942.30',chg:'-0.21%',up:false},
+  {name:'NIFTY SMALL 250',val:'9,872.05',chg:'-0.47%',up:false},
+  {name:'NIFTY NEXT 50',val:'61,204.80',chg:'+0.29%',up:true},
+  {name:'USD/INR',val:'83.47',chg:'-0.12%',up:false},
+  {name:'GOLD MCX',val:'₹72,480',chg:'+0.29%',up:true},
+  {name:'SILVER MCX',val:'₹91,230',chg:'+0.55%',up:true},
+  {name:'NIFTY IT',val:'38,410.20',chg:'+1.12%',up:true},
+  {name:'NIFTY PHARMA',val:'19,882.60',chg:'+0.37%',up:true},
+];
+
+/* ══════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════ */
+function parseAmt(s){ return parseFloat(String(s).replace(/[^0-9.]/g,''))||0; }
+function fmtINR(n){
+  if(n>=1e7) return '₹'+(n/1e7).toFixed(2)+'Cr';
+  if(n>=1e5) return '₹'+(n/1e5).toFixed(2)+'L';
+  return '₹'+Math.round(n).toLocaleString('en-IN');
+}
+function fmtINRLong(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
+function formatAmount(el){
+  const raw = el.value.replace(/[^0-9]/g,'');
+  el.value = raw ? parseInt(raw,10).toLocaleString('en-IN') : '';
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+/* ══════════════════════════════════════════
+   TICKER BUILD
+══════════════════════════════════════════ */
+function buildTicker(){
+  const track = document.getElementById('tickerTrack');
+  let html = '';
+  const items = [...TICKER_DATA,...TICKER_DATA]; // duplicate for infinite scroll
+  items.forEach(t=>{
+    html += `<div class="t-item">
+      <span class="t-name">${t.name}</span>
+      <span class="t-val">${t.val}</span>
+      <span class="t-chg ${t.up?'up':'dn'}">${t.chg}</span>
+    </div><div class="t-sep"></div>`;
+  });
+  track.innerHTML = html;
+}
+
+/* ══════════════════════════════════════════
+   MARKET TABLE BUILD
+══════════════════════════════════════════ */
+function buildMarketTable(){
+  const tbody = document.getElementById('mktTableBody');
+  tbody.innerHTML = MARKET_DATA.map(p=>{
+    const tagMap={india:'<span class="tag india">India</span>',nifty:'<span class="tag nifty">Nifty</span>',mf:'<span class="tag mf">MF</span>'};
+    const ytdC = p.ytd>=0?'pos':'neg';
+    const barW = Math.min(Math.abs(p.y3)/20*60,60);
+    return `<tr>
+      <td><span class="port-name" onclick="showToast('Loading ${p.name}...')">${p.name}</span>${tagMap[p.tag]}</td>
+      <td class="r ${ytdC}">${p.ytd>=0?'+':''}${p.ytd.toFixed(2)}%</td>
+      <td class="r pos">+${p.y1.toFixed(2)}%</td>
+      <td class="r pos">+${p.y3.toFixed(2)}%<span class="bar-mini" style="width:${barW}px;background:var(--saffron);"></span></td>
+      <td class="r pos">+${p.y5.toFixed(2)}%</td>
+      <td class="r">${p.sharpe.toFixed(2)}</td>
+      <td class="r neg">${p.maxdd.toFixed(1)}%</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════ */
+function switchTab(t){
+  const tabs=['sip','tax','compare','retire','upload'];
+  document.querySelectorAll('.tool-tab').forEach((el,i)=>{
+    el.classList.toggle('active',tabs[i]===t);
+  });
+  document.querySelectorAll('.tool-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+  if(t==='tax') calcTax();
+  if(t==='upload') renderSavedPortfolios();
+}
+
+/* ══════════════════════════════════════════
+   SIP BACKTEST ENGINE
+══════════════════════════════════════════ */
+let sipChartInst = null;
+function runSIP(){
+  const amt = parseAmt(document.getElementById('sipAmount').value);
+  const fund = document.getElementById('sipFund').value;
+  const years = parseInt(document.getElementById('sipYears').value);
+  const stepup = parseFloat(document.getElementById('sipStepup').value)/100;
+  const slab = parseFloat(document.getElementById('taxSlab').value)/100;
+
+  const loading = document.getElementById('sipLoading');
+  const results = document.getElementById('sipResults');
+  results.classList.remove('show');
+  loading.classList.add('show');
+
+  setTimeout(()=>{
+    loading.classList.remove('show');
+    const data = computeSIP(amt, fund, years, stepup, slab);
+    renderSIPResults(data, fund, years);
+    results.classList.add('show');
+  }, 1200);
+}
+
+function computeSIP(monthlyAmt, fundKey, years, stepup, slab){
+  const fd = FUND_DATA[fundKey];
+  const annualReturn = fd.cagr/100;
+  const monthlyReturn = Math.pow(1+annualReturn,1/12)-1;
+  
+  const labels=[], corpusData=[], investedData=[];
+  let corpus=0, invested=0, currentSIP=monthlyAmt;
+  
+  for(let y=0;y<years;y++){
+    for(let m=0;m<12;m++){
+      corpus = corpus*(1+monthlyReturn)+currentSIP;
+      invested += currentSIP;
+    }
+    currentSIP = currentSIP*(1+stepup);
+    labels.push(`Year ${y+1}`);
+    corpusData.push(Math.round(corpus));
+    investedData.push(Math.round(invested));
+  }
+  
+  const gains = corpus - invested;
+  const isEquity = !['gold'].includes(fundKey);
+  const ltcgExemption = 125000;
+  const taxableGains = Math.max(0, gains - ltcgExemption);
+  const ltcgRate = isEquity ? 0.125 : slab; // equity LTCG = 12.5%, debt = slab
+  const tax = taxableGains * ltcgRate;
+  const netCorpus = corpus - tax;
+  
+  // XIRR approximation
+  let totalInvested = 0, currentSIP2 = monthlyAmt;
+  for(let y=0;y<years;y++){
+    for(let m=0;m<12;m++) totalInvested+=currentSIP2;
+    currentSIP2*=(1+stepup);
+  }
+  const xirr = (Math.pow(corpus/totalInvested, 1/years)-1)*100;
+  const postTaxXirr = (Math.pow(netCorpus/totalInvested, 1/years)-1)*100;
+  
+  return { corpus, invested, gains, tax, netCorpus, xirr, postTaxXirr,
+           labels, corpusData, investedData, fd, ltcgRate, ltcgExemption,
+           taxableGains, isEquity, totalInvested };
+}
+
+function renderSIPResults(d, fundKey, years){
+  document.getElementById('sipMetrics').innerHTML = `
+    <div class="metric-card">
+      <div class="metric-lbl">Total Invested</div>
+      <div class="metric-val">${fmtINR(d.totalInvested)}</div>
+      <div class="metric-sub">${years} years of SIPs</div>
+    </div>
+    <div class="metric-card highlight">
+      <div class="metric-lbl">Gross Corpus</div>
+      <div class="metric-val orange">${fmtINR(d.corpus)}</div>
+      <div class="metric-sub">XIRR ${d.xirr.toFixed(1)}%</div>
+    </div>
+    <div class="metric-card tax-card">
+      <div class="metric-lbl">Tax Payable (LTCG)</div>
+      <div class="metric-val red">${fmtINR(d.tax)}</div>
+      <div class="metric-sub">${(d.ltcgRate*100).toFixed(1)}% on taxable gains</div>
+    </div>
+    <div class="metric-card net-card">
+      <div class="metric-lbl">Net Corpus (Post-tax)</div>
+      <div class="metric-val green">${fmtINR(d.netCorpus)}</div>
+      <div class="metric-sub">XIRR ${d.postTaxXirr.toFixed(1)}%</div>
+    </div>
+  `;
+  
+  document.getElementById('chartTitle').textContent = `${d.fd.name} — ${years}-Year SIP Growth`;
+  document.getElementById('chartLegend').innerHTML = `
+    <span class="legend-item"><span class="legend-dot" style="background:${d.fd.color};"></span>Corpus</span>
+    <span class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.3);"></span>Invested</span>
+  `;
+  
+  if(sipChartInst) sipChartInst.destroy();
+  sipChartInst = new Chart(document.getElementById('sipChart'),{
+    type:'line',
+    data:{
+      labels:d.labels,
+      datasets:[
+        { label:'Corpus', data:d.corpusData, borderColor:d.fd.color, backgroundColor:d.fd.color+'22',
+          fill:true, tension:0.4, pointRadius:0, borderWidth:2.5 },
+        { label:'Invested', data:d.investedData, borderColor:'rgba(255,255,255,0.3)',
+          borderDash:[4,3], fill:false, tension:0, pointRadius:0, borderWidth:1.5 }
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{
+        callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}
+      }},
+      scales:{
+        x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#64748b',font:{size:11},callback:v=>fmtINR(v)},grid:{color:'rgba(255,255,255,0.04)'}}
+      }
+    }
+  });
+  
+  document.getElementById('taxBreakdown').innerHTML = `
+    <div class="tax-breakdown-title">Tax Breakdown — Budget 2024</div>
+    <div class="tax-row"><span class="tax-key">Total Capital Gains</span><span class="tax-amount">${fmtINR(d.gains)}</span></div>
+    <div class="tax-row"><span class="tax-key">LTCG Exemption (₹1.25L)</span><span class="tax-amount green">− ${fmtINR(d.ltcgExemption)}</span></div>
+    <div class="tax-row"><span class="tax-key">Taxable Gains</span><span class="tax-amount">${fmtINR(d.taxableGains)}</span></div>
+    <div class="tax-row"><span class="tax-key">LTCG Tax Rate (${d.isEquity?'Equity':'Debt'})</span><span class="tax-amount">${(d.ltcgRate*100).toFixed(1)}%</span></div>
+    <div class="tax-row"><span class="tax-key">Total Tax Payable</span><span class="tax-amount red">− ${fmtINR(d.tax)}</span></div>
+    <div class="tax-row"><span class="tax-key">Net Corpus (Take-home)</span><span class="tax-amount green">${fmtINR(d.netCorpus)}</span></div>
+  `;
+  
+  document.getElementById('sharePreview').textContent =
+    `₹${Math.round(parseAmt(document.getElementById('sipAmount').value)/1000)}K SIP → ${fmtINR(d.netCorpus)} post-tax in ${years}Y`;
+}
+
+/* ══════════════════════════════════════════
+   TAX CALCULATOR
+══════════════════════════════════════════ */
+function calcTax(){
+  const asset = document.getElementById('taxAsset').value;
+  const cost  = parseAmt(document.getElementById('taxCost').value);
+  const sale  = parseAmt(document.getElementById('taxSale').value);
+  const hold  = document.getElementById('taxHolding').value;
+  const slab  = parseFloat(document.getElementById('taxSlabT').value)/100;
+  const ltcgUsed = parseAmt(document.getElementById('taxLtcgUsed').value);
+  
+  if(!cost||!sale){ document.getElementById('taxRows').innerHTML='<div style="color:var(--text3);font-size:13px;padding:8px 0;">Enter purchase and sale values above.</div>'; return; }
+  
+  const gain = sale - cost;
+  if(gain<=0){ document.getElementById('taxRows').innerHTML='<div style="color:#4ade80;font-size:13px;padding:8px 0;">Capital loss of '+fmtINR(Math.abs(gain))+' — can be carried forward 8 years.</div>'; return; }
+  
+  let rate, label, exemption=0, note='';
+  if(asset==='equity'){
+    if(hold==='stcg'){ rate=0.20; label='STCG (Equity) — 20%'; note='Short-term capital gains on equity and equity MFs are taxed at 20% flat (Budget 2024, up from 15%).'; }
+    else { rate=0.125; label='LTCG (Equity) — 12.5%'; exemption=Math.max(0, 125000-ltcgUsed); note='₹1.25 lakh LTCG exemption per financial year. Gains above ₹1.25L taxed at 12.5% without indexation (Budget 2024).'; }
+  } else if(asset==='debt'){
+    rate=slab; label=`STCG/LTCG (Debt) — Slab rate (${(slab*100).toFixed(0)}%)`; note='Post-April 2023: All debt MF gains are taxed at your applicable income tax slab rate — no LTCG benefit. Indexation removed.';
+  } else {
+    if(hold==='stcg'){ rate=slab; label=`STCG (Gold) — Slab rate (${(slab*100).toFixed(0)}%)`; note='Short-term gains on Gold ETF/SGB taxed at slab rate.'; }
+    else { rate=0.125; label='LTCG (Gold) — 12.5%'; exemption=Math.max(0, 125000-ltcgUsed); note='Long-term gold gains taxed at 12.5% without indexation (Budget 2024).'; }
+  }
+  
+  const taxableGain = Math.max(0, gain - exemption);
+  const tax = taxableGain * rate;
+  const cess = tax * 0.04;
+  const total = tax + cess;
+  const netProceeds = sale - total;
+  
+  document.getElementById('taxRows').innerHTML = `
+    <div class="tax-item"><span class="tax-item-label">Sale Value</span><span class="tax-item-value">${fmtINRLong(sale)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">Purchase Value</span><span class="tax-item-value">${fmtINRLong(cost)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">Capital Gains</span><span class="tax-item-value" style="color:#4ade80;">${fmtINRLong(gain)}</span></div>
+    ${exemption>0?`<div class="tax-item"><span class="tax-item-label">LTCG Exemption (remaining)</span><span class="tax-item-value" style="color:#4ade80;">− ${fmtINRLong(exemption)}</span></div>`:''}
+    <div class="tax-item"><span class="tax-item-label">Taxable Gains (${label})</span><span class="tax-item-value">${fmtINRLong(taxableGain)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">Tax</span><span class="tax-item-value" style="color:#f87171;">${fmtINRLong(tax)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">4% Health & Education Cess</span><span class="tax-item-value" style="color:#f87171;">${fmtINRLong(cess)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">Total Tax Payable</span><span class="tax-item-value" style="color:#f87171;font-family:var(--mono);">${fmtINRLong(total)}</span></div>
+    <div class="tax-item"><span class="tax-item-label">Net Proceeds (take-home)</span><span class="tax-item-value" style="color:#4ade80;font-family:var(--mono);">${fmtINRLong(netProceeds)}</span></div>
+  `;
+  document.getElementById('taxNote').textContent = note;
+}
+
+/* ══════════════════════════════════════════
+   COMPARE ENGINE
+══════════════════════════════════════════ */
+let cmpChartInst = null;
+function runCompare(){
+  const fA = document.getElementById('cmpA').value;
+  const fB = document.getElementById('cmpB').value;
+  const amtA = parseAmt(document.getElementById('cmpAmtA').value);
+  const amtB = parseAmt(document.getElementById('cmpAmtB').value);
+  const years = parseInt(document.getElementById('cmpYears').value);
+  
+  document.getElementById('cmpLoading').innerHTML='<div class="spinner"></div><div class="loading-text">Comparing portfolios…</div>';
+  document.getElementById('cmpLoading').classList.add('show');
+  document.getElementById('cmpResults').classList.remove('show');
+  
+  setTimeout(()=>{
+    document.getElementById('cmpLoading').classList.remove('show');
+    document.getElementById('cmpLoading').innerHTML='';
+    
+    const dA = computeSIP(amtA, fA, years, 0, 0.30);
+    const dB = computeSIP(amtB, fB, years, 0, 0.30);
+    renderCompare(dA, dB, fA, fB);
+    document.getElementById('cmpResults').classList.add('show');
+  }, 1000);
+}
+
+function renderCompare(dA, dB, fA, fB){
+  const fdA = FUND_DATA[fA], fdB = FUND_DATA[fB];
+  const metrics = [
+    { lbl:'Gross Corpus', a:fmtINR(dA.corpus), b:fmtINR(dB.corpus), winA:dA.corpus>dB.corpus },
+    { lbl:'XIRR', a:dA.xirr.toFixed(1)+'%', b:dB.xirr.toFixed(1)+'%', winA:dA.xirr>dB.xirr },
+    { lbl:'Post-tax Corpus', a:fmtINR(dA.netCorpus), b:fmtINR(dB.netCorpus), winA:dA.netCorpus>dB.netCorpus },
+    { lbl:'Sharpe Ratio', a:fdA.sharpe.toFixed(2), b:fdB.sharpe.toFixed(2), winA:fdA.sharpe>fdB.sharpe },
+    { lbl:'Max Drawdown', a:fdA.maxdd+'%', b:fdB.maxdd+'%', winA:fdA.maxdd>fdB.maxdd },
+    { lbl:'Tax Payable', a:fmtINR(dA.tax), b:fmtINR(dB.tax), winA:dA.tax<dB.tax },
+  ];
+  
+  document.getElementById('cmpMetrics').innerHTML = metrics.map(m=>`
+    <div class="compare-metric">
+      <div class="lbl">${m.lbl}</div>
+      <div class="vals">
+        <span class="val-a">${m.a}${m.winA?'<span class="winner-badge">✓</span>':''}</span>
+        <span style="color:var(--text3);font-size:12px;">vs</span>
+        <span class="val-b">${m.b}${!m.winA?'<span class="winner-badge">✓</span>':''}</span>
+      </div>
+    </div>`).join('');
+  
+  document.getElementById('cmpLegend').innerHTML = `
+    <span class="legend-item"><span class="legend-dot" style="background:${fdA.color};"></span>${fdA.name}</span>
+    <span class="legend-item"><span class="legend-dot" style="background:${fdB.color};"></span>${fdB.name}</span>`;
+  
+  if(cmpChartInst) cmpChartInst.destroy();
+  cmpChartInst = new Chart(document.getElementById('cmpChart'),{
+    type:'line',
+    data:{
+      labels:dA.labels,
+      datasets:[
+        { label:fdA.name, data:dA.corpusData, borderColor:fdA.color, backgroundColor:fdA.color+'18',
+          fill:true, tension:0.4, pointRadius:0, borderWidth:2.5 },
+        { label:fdB.name, data:dB.corpusData, borderColor:fdB.color, backgroundColor:fdB.color+'18',
+          fill:true, tension:0.4, pointRadius:0, borderWidth:2.5 }
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},
+      scales:{
+        x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#64748b',font:{size:11},callback:v=>fmtINR(v)},grid:{color:'rgba(255,255,255,0.04)'}}
+      }
+    }
+  });
+}
+
+/* ══════════════════════════════════════════
+   RETIREMENT PLANNER
+══════════════════════════════════════════ */
+let retChartInst = null;
+function runRetire(){
+  const age    = parseInt(document.getElementById('retAge').value)||30;
+  const target = parseInt(document.getElementById('retTarget').value)||60;
+  const sip    = parseAmt(document.getElementById('retSIP').value);
+  const exp    = parseAmt(document.getElementById('retExpenses').value);
+  const exist  = parseAmt(document.getElementById('retExisting').value);
+  
+  document.getElementById('retResults').classList.remove('show');
+  
+  const years = target - age;
+  const annualReturn = 0.13, inflation = 0.06, withdrawalYears = 30;
+  
+  // Corpus from SIP
+  const mr = Math.pow(1.13,1/12)-1;
+  let corpus = exist * Math.pow(1.13, years);
+  let invested = exist;
+  const labels=[], p50=[], p25=[], p75=[];
+  
+  for(let y=0;y<years;y++){
+    for(let m=0;m<12;m++){ corpus=corpus*(1+mr)+sip; invested+=sip; }
+    // Monte Carlo bands (simplified)
+    const base = corpus;
+    labels.push(`Age ${age+y+1}`);
+    p50.push(Math.round(base));
+    p25.push(Math.round(base*0.78));
+    p75.push(Math.round(base*1.22));
+  }
+  
+  const totalCorpus = corpus;
+  // Inflation-adjusted monthly expenses at retirement
+  const futureExp = exp * Math.pow(1+inflation, years);
+  const annualExp = futureExp * 12;
+  // Required corpus (SWP at 4% rule adjusted for Indian inflation)
+  const reqCorpus = annualExp / 0.04;
+  const isEnough = totalCorpus >= reqCorpus;
+  const surplusDeficit = totalCorpus - reqCorpus;
+  
+  document.getElementById('retMetrics').innerHTML = `
+    <div class="metric-card">
+      <div class="metric-lbl">Years to Retirement</div>
+      <div class="metric-val">${years} yrs</div>
+      <div class="metric-sub">At age ${target}</div>
+    </div>
+    <div class="metric-card highlight">
+      <div class="metric-lbl">Projected Corpus</div>
+      <div class="metric-val orange">${fmtINR(totalCorpus)}</div>
+      <div class="metric-sub">At 13% CAGR</div>
+    </div>
+    <div class="metric-card ${isEnough?'net-card':'tax-card'}">
+      <div class="metric-lbl">Required Corpus</div>
+      <div class="metric-val ${isEnough?'green':'red'}">${fmtINR(reqCorpus)}</div>
+      <div class="metric-sub">For ₹${(futureExp/1000).toFixed(0)}K/mo</div>
+    </div>
+    <div class="metric-card ${isEnough?'net-card':'tax-card'}">
+      <div class="metric-lbl">${isEnough?'Surplus':'Shortfall'}</div>
+      <div class="metric-val ${isEnough?'green':'red'}">${fmtINR(Math.abs(surplusDeficit))}</div>
+      <div class="metric-sub">${isEnough?'You\'re on track 🎉':'Increase SIP'}</div>
+    </div>
+  `;
+  
+  if(retChartInst) retChartInst.destroy();
+  retChartInst = new Chart(document.getElementById('retChart'),{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        { label:'75th percentile', data:p75, borderColor:'rgba(255,107,0,0.4)', backgroundColor:'rgba(255,107,0,0.06)', fill:true, tension:0.4, pointRadius:0, borderWidth:1 },
+        { label:'Median (50th)', data:p50, borderColor:'#FF6B00', fill:false, tension:0.4, pointRadius:0, borderWidth:2.5 },
+        { label:'25th percentile', data:p25, borderColor:'rgba(255,107,0,0.3)', backgroundColor:'rgba(7,17,31,0.5)', fill:'-1', tension:0.4, pointRadius:0, borderWidth:1 },
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},
+      scales:{
+        x:{ticks:{color:'#64748b',font:{size:10},maxTicksLimit:8},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#64748b',font:{size:11},callback:v=>fmtINR(v)},grid:{color:'rgba(255,255,255,0.04)'}}
+      }
+    }
+  });
+  
+  document.getElementById('retInsight').innerHTML = `
+    <div class="tax-breakdown-title" style="color:var(--saffron2);">Retirement Insight</div>
+    <div class="tax-row" style="border-color:rgba(255,107,0,0.1);">
+      <span class="tax-key">Monthly SIP to stay on track</span>
+      <span class="tax-amount" style="color:var(--saffron2);">${fmtINR(sip * (reqCorpus/totalCorpus))}/mo</span>
+    </div>
+    <div class="tax-row" style="border-color:rgba(255,107,0,0.1);">
+      <span class="tax-key">Inflation-adjusted expenses at ${target}</span>
+      <span class="tax-amount">${fmtINR(futureExp)}/mo</span>
+    </div>
+    <div class="tax-row" style="border-color:rgba(255,107,0,0.1);">
+      <span class="tax-key">SWP rate assumed</span>
+      <span class="tax-amount">4% per year</span>
+    </div>
+    <div class="tax-row" style="border-bottom:none;">
+      <span class="tax-key">Inflation assumed</span>
+      <span class="tax-amount">6% per year (CPI)</span>
+    </div>
+  `;
+  
+  document.getElementById('retResults').classList.add('show');
+}
+
+/* ══════════════════════════════════════════
+   STATIC CHART (analysis section)
+══════════════════════════════════════════ */
+function buildStaticChart(){
+  const labels=['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'];
+  const nifty=[12,14,18,16,22,20,32,30,37,43].map((v,i)=>v*10000+120000);
+  const mid  =[12,13,16,13,18,16,28,25,34,50].map((v,i)=>v*10000+120000);
+  new Chart(document.getElementById('staticChart'),{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        { label:'Nifty 50', data:[120000,138000,176000,165000,198000,192000,290000,285000,346000,402000],
+          borderColor:'#FF6B00', backgroundColor:'rgba(255,107,0,0.1)', fill:true, tension:0.4, pointRadius:0, borderWidth:2.5 },
+        { label:'Midcap 150', data:[120000,132000,162000,138000,176000,166000,272000,252000,328000,482000],
+          borderColor:'rgba(96,165,250,0.7)', fill:false, tension:0.4, pointRadius:0, borderWidth:1.8, borderDash:[4,3] }
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},
+      scales:{
+        x:{ticks:{color:'#64748b',font:{size:10}},grid:{display:false}},
+        y:{ticks:{color:'#64748b',font:{size:10},callback:v=>fmtINR(v)},grid:{color:'rgba(255,255,255,0.05)'}}
+      }
+    }
+  });
+}
+
+/* ══════════════════════════════════════════
+   SHARE RESULT
+══════════════════════════════════════════ */
+function shareResult(){
+  const preview = document.getElementById('sharePreview').textContent;
+  if(navigator.clipboard){ navigator.clipboard.writeText('🇮🇳 Quant Edge India — '+preview+' | quantedge.in'); }
+  showToast('Result copied! Share with your network.');
+}
+
+/* ══════════════════════════════════════════
+   PORTFOLIO UPLOAD ENGINE v2
+   Health Score + Paywall + Email Gate + Advisory
+══════════════════════════════════════════ */
+let currentHoldings = [];
+let portfolioMetrics = {};
+let isUnlocked = false;
+
+// Check if already unlocked from localStorage
+function checkUnlockState(){
+  const email = localStorage.getItem('qe_user_email');
+  if(email){ isUnlocked = true; }
+}
+
+const LIVE_PRICES = {
+  'RELIANCE':2891,'HDFCBANK':1582,'INFOSYS':1721,'TCS':3840,
+  'ICICIBANK':1142,'SBIN':778,'BAJFINANCE':6820,'AXISBANK':1076,
+  'MARUTI':11280,'LT':3410,'WIPRO':480,'HCLTECH':1590,
+  'NIFTYBEES':245,'JUNIORBEES':610,'GOLDBEES':58,'PPFASMF':74,
+  'MIRAEEMERGBLUE':94,'HDFCMID150':195,'AXISNIFTY':19.8,
+};
+
+function getPriceForSymbol(sym){
+  const s = sym.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(LIVE_PRICES[s]) return LIVE_PRICES[s];
+  return 800 + Math.abs(hashStr(s) % 400);
+}
+function hashStr(s){ let h=0; for(let c of s) h=(h*31+c.charCodeAt(0))&0xffffffff; return h; }
+
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if(file && file.name.endsWith('.csv')) handleCSVUpload(file);
+  else showToast('Please upload a .csv file');
+}
+
+function handleCSVUpload(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const holdings = parseCSV(e.target.result);
+    if(!holdings.length){ showToast('Could not parse CSV. Check the format guide below.'); return; }
+    renderPortfolioAnalysis(holdings, file.name.replace('.csv',''));
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text){
+  const lines = text.trim().split('\n');
+  if(lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/[^a-z_]/g,''));
+  const colMap = {
+    symbol: headers.findIndex(h=>['symbol','tradingsymbol','stock','scrip','name','instrument'].some(k=>h.includes(k))),
+    qty:    headers.findIndex(h=>['qty','quantity','shares','units'].some(k=>h.includes(k))),
+    price:  headers.findIndex(h=>['avg','average','buyprice','cost','purchaseprice'].some(k=>h.includes(k))),
+    date:   headers.findIndex(h=>['date','purchasedate','buydate','tradedate'].some(k=>h.includes(k))),
+  };
+  return lines.slice(1).map(line=>{
+    const cols = line.split(',').map(c=>c.trim().replace(/"/g,''));
+    const sym = cols[colMap.symbol>-1?colMap.symbol:0];
+    if(!sym) return null;
+    const qty = parseFloat(cols[colMap.qty>-1?colMap.qty:1]) || 10;
+    const buyPrice = parseFloat(cols[colMap.price>-1?colMap.price:2]) || getPriceForSymbol(sym)*0.8;
+    const buyDateStr = cols[colMap.date>-1?colMap.date:3];
+    const buyDate = buyDateStr ? new Date(buyDateStr) : new Date(Date.now() - Math.random()*2*365*86400000);
+    return sym && qty>0 && buyPrice>0 ? {symbol:sym,qty,buyPrice,buyDate,currentPrice:getPriceForSymbol(sym)} : null;
+  }).filter(Boolean);
+}
+
+function loadDemoPortfolio(){
+  renderPortfolioAnalysis([
+    {symbol:'RELIANCE',   qty:10,  buyPrice:2200, buyDate:new Date('2022-06-15'), currentPrice:2891},
+    {symbol:'HDFCBANK',   qty:25,  buyPrice:1450, buyDate:new Date('2021-03-10'), currentPrice:1582},
+    {symbol:'INFOSYS',    qty:15,  buyPrice:1680, buyDate:new Date('2023-09-01'), currentPrice:1721},
+    {symbol:'NIFTYBEES',  qty:100, buyPrice:180,  buyDate:new Date('2020-01-15'), currentPrice:245 },
+    {symbol:'BAJFINANCE', qty:5,   buyPrice:5900, buyDate:new Date('2024-02-01'), currentPrice:6820},
+    {symbol:'PPFASMF',    qty:500, buyPrice:52,   buyDate:new Date('2021-11-20'), currentPrice:74  },
+    {symbol:'TCS',        qty:8,   buyPrice:3200, buyDate:new Date('2022-04-10'), currentPrice:3840},
+    {symbol:'SBIN',       qty:50,  buyPrice:620,  buyDate:new Date('2023-01-05'), currentPrice:778 },
+  ], 'Sample Zerodha Portfolio');
+}
+
+/* ──── HEALTH SCORE ENGINE ──── */
+function computeHealthScore(enriched, totalInvested, totalValue, totalTax){
+  const totalGain = totalValue - totalInvested;
+  const gainPct = totalInvested > 0 ? (totalGain / totalInvested) * 100 : 0;
+
+  // 1. Tax efficiency: how much tax vs gains (lower = better)
+  const taxDrag = totalGain > 0 ? (totalTax / totalGain) * 100 : 0;
+  const taxScore = Math.max(0, Math.round(100 - taxDrag * 1.5));
+
+  // 2. Diversification: Herfindahl index
+  const weights = enriched.map(h=>(h.value/totalValue));
+  const hhi = weights.reduce((s,w)=>s+w*w, 0); // 0=perfect, 1=concentrated
+  const divScore = Math.round((1 - hhi) * 100);
+
+  // 3. LTCG ratio: more LTCG = better tax position
+  const ltcgCount = enriched.filter(h=>h.isLTCG).length;
+  const ltcgScore = Math.round((ltcgCount / enriched.length) * 100);
+
+  // 4. Return quality: XIRR vs Nifty50 (14.2% benchmark)
+  const avgHoldYears = enriched.reduce((s,h)=>s+h.holdDays,0)/enriched.length/365;
+  const xirr = avgHoldYears > 0 ? (Math.pow(totalValue/totalInvested,1/avgHoldYears)-1)*100 : gainPct;
+  const returnScore = Math.min(100, Math.max(0, Math.round((xirr / 14.2) * 70)));
+
+  const overall = Math.round(taxScore*0.3 + divScore*0.25 + ltcgScore*0.2 + returnScore*0.25);
+
+  return {overall, taxScore, divScore, ltcgScore, returnScore, xirr, taxDrag};
+}
+
+function renderHealthScore(score){
+  const {overall, taxScore, divScore, ltcgScore, returnScore} = score;
+  const circumference = 226;
+  const offset = circumference - (circumference * overall / 100);
+  const arc = document.getElementById('healthArc');
+  setTimeout(()=>{
+    arc.style.strokeDashoffset = offset;
+    // Color by score
+    arc.style.stroke = overall >= 75 ? '#4ade80' : overall >= 55 ? '#a3e635' : overall >= 35 ? '#fbbf24' : '#f87171';
+  }, 100);
+
+  // Animate number
+  let n = 0;
+  const interval = setInterval(()=>{
+    n = Math.min(n+2, overall);
+    document.getElementById('healthNum').textContent = n;
+    if(n >= overall) clearInterval(interval);
+  }, 20);
+
+  const gradeMap = [
+    [75,'A','score-excellent'],[55,'B','score-good'],[35,'C','score-fair'],[0,'D','score-poor']
+  ];
+  const [,grade,cls] = gradeMap.find(([t])=>overall>=t);
+  const gradeEl = document.getElementById('healthGrade');
+  gradeEl.textContent = grade;
+  gradeEl.className = 'health-grade ' + cls;
+
+  const bars = [
+    {label:'Tax Efficiency', val:taxScore, color:'#FF6B00'},
+    {label:'Diversification', val:divScore, color:'#60a5fa'},
+    {label:'LTCG Position', val:ltcgScore, color:'#4ade80'},
+    {label:'Return Quality', val:returnScore, color:'#a78bfa'},
+  ];
+  document.getElementById('healthBars').innerHTML = bars.map(b=>`
+    <div class="hbar-row">
+      <div class="hbar-label">${b.label}</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:0%;background:${b.color};" data-target="${b.val}"></div></div>
+      <div class="hbar-val">${b.val}</div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.hbar-fill').forEach(el=>{
+      el.style.width = el.dataset.target + '%';
+    });
+  }, 200);
+}
+
+/* ──── MAIN RENDER ──── */
+function renderPortfolioAnalysis(holdings, name){
+  currentHoldings = holdings;
+  checkUnlockState();
+  const today = new Date();
+  let totalInvested=0, totalValue=0, totalSTCG=0, totalLTCG=0, totalTax=0;
+  let ltcgUsed=0;
+  const LTCG_EXEMPT = 125000;
+
+  const enriched = holdings.map(h=>{
+    const invested = h.qty * h.buyPrice;
+    const value = h.qty * h.currentPrice;
+    const gain = value - invested;
+    const holdDays = Math.floor((today - h.buyDate) / 86400000);
+    const isLTCG = holdDays >= 365;
+    let tax = 0;
+    if(gain > 0){
+      if(isLTCG){
+        const exemptAvail = Math.max(0, LTCG_EXEMPT - ltcgUsed);
+        tax = Math.max(0, gain - exemptAvail) * 0.125;
+        ltcgUsed += gain;
+        totalLTCG += gain;
+      } else {
+        tax = gain * 0.20;
+        totalSTCG += gain;
+      }
+      totalTax += tax;
+    }
+    totalInvested += invested;
+    totalValue += value;
+    return {...h, invested, value, gain, holdDays, isLTCG, tax, taxType: isLTCG?'LTCG':'STCG'};
+  });
+
+  const totalGain = totalValue - totalInvested;
+  const postTaxValue = totalValue - totalTax;
+  const overallReturn = totalInvested>0 ? ((totalGain/totalInvested)*100) : 0;
+  const avgHoldYears = enriched.reduce((s,h)=>s+h.holdDays,0)/enriched.length/365;
+  const xirr = avgHoldYears>0 ? (Math.pow(totalValue/totalInvested,1/avgHoldYears)-1)*100 : overallReturn;
+
+  portfolioMetrics = {name, totalInvested, totalValue, totalGain, totalTax, postTaxValue, xirr, totalSTCG, totalLTCG};
+
+  // Health score
+  const healthScore = computeHealthScore(enriched, totalInvested, totalValue, totalTax);
+  renderHealthScore(healthScore);
+
+  // Header
+  document.getElementById('reportTitle').textContent = name || 'My Portfolio';
+  document.getElementById('reportDate').textContent = today.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  // Metrics
+  document.getElementById('uploadMetrics').innerHTML = `
+    <div class="metric-card highlight">
+      <div class="metric-lbl">Total Value</div>
+      <div class="metric-val orange">${fmtINR(totalValue)}</div>
+      <div class="metric-sub">Invested: ${fmtINR(totalInvested)}</div>
+    </div>
+    <div class="metric-card ${totalGain>=0?'net-card':'tax-card'}">
+      <div class="metric-lbl">Total Gain / Loss</div>
+      <div class="metric-val ${totalGain>=0?'green':'red'}">${totalGain>=0?'+':''}${fmtINR(totalGain)}</div>
+      <div class="metric-sub">${overallReturn>=0?'+':''}${overallReturn.toFixed(1)}% absolute</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-lbl">XIRR (annualised)</div>
+      <div class="metric-val">${xirr.toFixed(1)}%</div>
+      <div class="metric-sub">vs Nifty 14.2% benchmark</div>
+    </div>
+    <div class="metric-card tax-card">
+      <div class="metric-lbl">Est. Tax Liability</div>
+      <div class="metric-val red">${fmtINR(totalTax)}</div>
+      <div class="metric-sub">You keep: <span style="color:#4ade80">${fmtINR(postTaxValue)}</span></div>
+    </div>
+  `;
+
+  document.getElementById('holdingsCount').textContent = `${holdings.length} holdings`;
+  document.getElementById('holdingsBody').innerHTML = enriched.map(h=>{
+    const gainPct = ((h.gain/h.invested)*100).toFixed(1);
+    return `<tr>
+      <td style="font-weight:600;color:#fff;">${h.symbol}</td>
+      <td class="r">${h.qty}</td>
+      <td class="r">₹${h.buyPrice.toLocaleString('en-IN',{maximumFractionDigits:0})}</td>
+      <td class="r ${h.gain>=0?'pos':'neg'}">${h.gain>=0?'+':''}${fmtINR(h.gain)} <span style="font-size:10px;opacity:0.7;">(${h.gain>=0?'+':''}${gainPct}%)</span></td>
+      <td class="r"><span class="tax-type-badge ${h.taxType.toLowerCase()}">${h.taxType}</span></td>
+      <td class="r" style="color:${h.tax>0?'#f87171':'#4ade80'}">${h.tax>0?fmtINR(h.tax):'Nil'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('uploadTaxSummary').innerHTML = `
+    <div class="tax-breakdown" style="background:rgba(239,68,68,0.05);">
+      <div class="tax-breakdown-title">Tax Summary — FY 2025–26</div>
+      <div class="tax-row"><span class="tax-key">Short-term gains (STCG @ 20%)</span><span class="tax-amount">${fmtINR(totalSTCG)}</span></div>
+      <div class="tax-row"><span class="tax-key">Long-term gains (LTCG)</span><span class="tax-amount">${fmtINR(totalLTCG)}</span></div>
+      <div class="tax-row"><span class="tax-key">LTCG exemption used (₹1.25L)</span><span class="tax-amount green">−${fmtINR(Math.min(ltcgUsed,LTCG_EXEMPT))}</span></div>
+      <div class="tax-row" style="border-bottom:none;padding-top:10px;">
+        <span class="tax-key" style="font-weight:700;color:#fff;">Total estimated tax</span>
+        <span class="tax-amount red" style="font-size:16px;">${fmtINR(totalTax)}</span>
+      </div>
+    </div>
+  `;
+
+  // Advisory CTA (show if significant tax liability)
+  if(totalTax > 5000){
+    document.getElementById('advisoryCta').style.display = 'grid';
+    document.getElementById('advisoryAmount').textContent =
+      `⚠️ Estimated tax leakage: ${fmtINR(totalTax)} — potentially reducible with expert review.`;
+  }
+
+  // Paywall state
+  applyPaywallState();
+
+  document.getElementById('uploadResults').style.display = 'block';
+  renderSavedPortfolios();
+  setTimeout(()=>document.getElementById('uploadResults').scrollIntoView({behavior:'smooth',block:'nearest'}), 100);
+}
+
+function applyPaywallState(){
+  const gate = document.getElementById('paywallGate');
+  const blur = document.getElementById('paywallBlurContent');
+  const viral = document.getElementById('viralUnlock');
+  if(isUnlocked){
+    gate.style.display = 'none';
+    blur.classList.remove('paywall-blur');
+    viral.style.display = 'none';
+    // Show unlocked badge
+    const badge = document.createElement('div');
+    badge.className = 'unlocked-badge';
+    badge.innerHTML = '✓ Full report unlocked';
+    const section = document.getElementById('paywallSection');
+    if(!section.querySelector('.unlocked-badge')) section.prepend(badge);
+  } else {
+    gate.style.display = 'flex';
+    blur.classList.add('paywall-blur');
+    viral.style.display = 'flex';
+  }
+}
+
+/* ──── UNLOCK FLOWS ──── */
+function unlockReport(){
+  const email = document.getElementById('gateEmail').value.trim();
+  if(!email || !email.includes('@')){
+    showToast('Please enter a valid email address');
+    return;
+  }
+  doUnlock(email);
+}
+
+function submitEmailGate(){
+  const email = document.getElementById('modalEmail').value.trim();
+  const name = document.getElementById('modalName').value.trim();
+  if(!email || !email.includes('@')){
+    showToast('Please enter a valid email');
+    return;
+  }
+  doUnlock(email, name);
+  closeModal('emailModal');
+}
+
+function doUnlock(email, name){
+  localStorage.setItem('qe_user_email', email);
+  if(name) localStorage.setItem('qe_user_name', name);
+  isUnlocked = true;
+  applyPaywallState();
+  showToast('🎉 Full report unlocked! Check your email for insights.');
+}
+
+function shareAndUnlock(){
+  const m = portfolioMetrics;
+  if(!m.name){ showToast('Upload a portfolio first'); return; }
+  const text =
+    `📊 Just analysed my portfolio with Quant Edge India\n\n` +
+    `💰 Value: ${fmtINR(m.totalValue)}\n` +
+    `📈 XIRR: ${m.xirr.toFixed(1)}%\n` +
+    `🏛️ Tax Liability: ${fmtINR(m.totalTax)}\n` +
+    `✅ What I Actually Keep: ${fmtINR(m.postTaxValue)}\n\n` +
+    `Most tools show returns. Quant Edge shows what you actually KEEP after tax.\n` +
+    `Free tool for Indian investors → quantedge.in\n\n#investing #NSE #PersonalFinance #QuantEdgeIndia`;
+  if(navigator.clipboard) navigator.clipboard.writeText(text);
+  // Unlock after share
+  doUnlock('linkedin_share@quantedge.in', 'LinkedIn User');
+  showToast('✅ Post copied + premium insight unlocked! Paste into LinkedIn.');
+}
+
+function openEmailModal(){ document.getElementById('emailModal').classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
+/* ──── SAVE / LOAD PORTFOLIOS ──── */
+function savePortfolio(){
+  if(!portfolioMetrics.name){ showToast('Upload a portfolio first'); return; }
+  const saved = JSON.parse(localStorage.getItem('qe_portfolios')||'[]');
+  saved.unshift({
+    id:Date.now(),
+    name:portfolioMetrics.name,
+    date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),
+    value:portfolioMetrics.totalValue,
+    gain:portfolioMetrics.totalGain,
+    xirr:portfolioMetrics.xirr,
+    tax:portfolioMetrics.totalTax,
+    postTax:portfolioMetrics.postTaxValue,
+  });
+  if(saved.length>10) saved.pop();
+  localStorage.setItem('qe_portfolios', JSON.stringify(saved));
+  showToast('Portfolio saved to your dashboard ✓');
+  renderSavedPortfolios();
+}
+
+function renderSavedPortfolios(){
+  const saved = JSON.parse(localStorage.getItem('qe_portfolios')||'[]');
+  const section = document.getElementById('savedPortfoliosSection');
+  const list = document.getElementById('savedPortfoliosList');
+  if(!saved.length){ section.style.display='none'; return; }
+  section.style.display='block';
+  list.innerHTML = saved.map(p=>`
+    <div style="background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:120px;">
+        <div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:2px;">${p.name}</div>
+        <div style="font-size:11px;color:var(--text3);">Saved ${p.date}</div>
+      </div>
+      <div style="text-align:right;min-width:90px;">
+        <div style="font-size:14px;font-weight:700;color:var(--saffron2);font-family:var(--mono);">${fmtINR(p.value)}</div>
+        <div style="font-size:11px;color:${p.gain>=0?'#4ade80':'#f87171'};">${p.gain>=0?'+':''}${fmtINR(p.gain)}</div>
+      </div>
+      <div style="text-align:right;min-width:72px;">
+        <div style="font-size:11px;color:var(--text2);">XIRR</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;font-family:var(--mono);">${p.xirr.toFixed(1)}%</div>
+      </div>
+      <div style="text-align:right;min-width:80px;">
+        <div style="font-size:11px;color:var(--text2);">Est. Tax</div>
+        <div style="font-size:13px;font-weight:700;color:#f87171;font-family:var(--mono);">${fmtINR(p.tax)}</div>
+      </div>
+      <button onclick="deletePortfolio(${p.id})" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;font-size:18px;" title="Remove">×</button>
+    </div>
+  `).join('');
+}
+
+function deletePortfolio(id){
+  let saved = JSON.parse(localStorage.getItem('qe_portfolios')||'[]');
+  saved = saved.filter(p=>p.id!==id);
+  localStorage.setItem('qe_portfolios', JSON.stringify(saved));
+  renderSavedPortfolios();
+  showToast('Portfolio removed');
+}
+
+function sharePortfolioReport(){
+  if(!portfolioMetrics.name){ showToast('Upload a portfolio first'); return; }
+  const m = portfolioMetrics;
+  const text =
+    `📊 My Portfolio Report — Quant Edge India\n\n` +
+    `💰 Total Value: ${fmtINR(m.totalValue)}\n` +
+    `📈 XIRR: ${m.xirr.toFixed(1)}%\n` +
+    `💹 Total Gain: ${m.totalGain>=0?'+':''}${fmtINR(m.totalGain)}\n` +
+    `🏛️ Estimated Tax: ${fmtINR(m.totalTax)}\n` +
+    `✅ What I Actually Keep: ${fmtINR(m.postTaxValue)}\n\n` +
+    `Most tools show returns. Quant Edge shows what you ACTUALLY keep after tax.\n` +
+    `India's post-tax portfolio intelligence → quantedge.in\n\n` +
+    `#investing #mutualfunds #NSE #PersonalFinance #QuantEdgeIndia`;
+  if(navigator.clipboard) navigator.clipboard.writeText(text);
+  showToast('LinkedIn-ready report copied 🚀');
+}
+
+   SCROLL ANIMATIONS
+══════════════════════════════════════════ */
+function initScrollObserver(){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+}
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  buildTicker();
+  buildMarketTable();
+  buildStaticChart();
+  calcTax();
+  initScrollObserver();
+  renderSavedPortfolios();
+});
+</script>
+</body>
 </html>
